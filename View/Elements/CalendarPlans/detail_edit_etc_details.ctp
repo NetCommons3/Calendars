@@ -17,16 +17,6 @@
 			<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
 		</div>
 
-		<?php /* 場所 */ ?>
-		<div class="form-group" data-calendar-name="inputLocation" ng-cloak>
-			<div class="col-xs-12">
-				<?php echo $this->NetCommonsForm->input('CalendarActionPlan.location', array(
-				'type' => 'text',
-				'label' => __d('calendars', 'Location'),
-				'div' => false,
-				)); ?>
-			</div>
-		</div>
 		<?php /* 連絡先 */ ?>
 		<div class="form-group" data-calendar-name="inputContact" ng-cloak>
 			<div class="col-xs-12">

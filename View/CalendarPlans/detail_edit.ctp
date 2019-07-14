@@ -130,6 +130,18 @@ $jsParameters = array(
 				</div>
 			</div><!-- end form-group-->
 
+			<?php /* 場所 */ ?>
+			<div class="form-group" data-calendar-name="inputLocation" ng-cloak>
+				<div class="col-xs-12">
+					<?php echo $this->NetCommonsForm->input('CalendarActionPlan.location', array(
+						'type' => 'text',
+						'label' => __d('calendars', 'Location'),
+						'div' => false,
+					)); ?>
+				</div>
+			</div>
+
+			<?php // 対象者 ?>
 			<div class="form-group">
 				<?php echo $this->NetCommonsForm->input('CalendarActionPlan.target_person', [
 					'label' => __d('calendars', 'Target Person'),
@@ -138,6 +150,7 @@ $jsParameters = array(
 					]
 				]);?>
 			</div>
+			<?php // 持ち物?>
 			<div class="form-group">
 				<?php echo $this->NetCommonsForm->input('CalendarActionPlan.belongings', [
 					'label' => __d('calendars', 'Belongings'),
