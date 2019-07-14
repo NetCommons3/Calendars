@@ -79,6 +79,13 @@ echo $this->element('Calendars.scripts');
 			</div><!-- おわり-->
 			<?php endif; ?>
 
+			<?php if ($event['CalendarEvent']['location'] !== '') : ?>
+				<div data-calendar-name="showLocation" class="calendar-eachplan-box">
+					<h3><?php echo __d('calendars', 'Location'); ?></h3>
+					<p><?php echo h($event['CalendarEvent']['location']); ?></p>
+				</div><!-- おわり-->
+			<?php endif; ?>
+
 			<?php //対象者 ?>
 			<div class="calendar-eachplan-box">
 				<h3><?=__d('calendars', 'Target Person')?></h3>
@@ -107,13 +114,6 @@ echo $this->element('Calendars.scripts');
 				<h3><?php echo $this->CalendarShareUsers->getCalendarShareUserTitle($vars, $event, $shareUserInfos); ?></h3>
 				<p><?php echo $this->CalendarShareUsers->getCalendarShareUser($vars, $event, $shareUserInfos); ?></p>
 			</div>
-			<?php endif; ?>
-
-			<?php if ($event['CalendarEvent']['location'] !== '') : ?>
-			<div data-calendar-name="showLocation" class="calendar-eachplan-box">
-				<h3><?php echo __d('calendars', 'Location'); ?></h3>
-				<p><?php echo h($event['CalendarEvent']['location']); ?></p>
-			</div><!-- おわり-->
 			<?php endif; ?>
 
 			<?php if ($event['CalendarEvent']['contact'] !== '') : ?>
