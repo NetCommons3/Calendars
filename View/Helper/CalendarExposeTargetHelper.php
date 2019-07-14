@@ -82,6 +82,9 @@ class CalendarExposeTargetHelper extends AppHelper {
 		$rooms = CalendarPermissiveRooms::getCreatableRoomIdList();
 		$targetRooms = array_intersect_key($options, $rooms);
 
+		$html = $this->NetCommonsForm->hidden('CalendarActionPlan.plan_room_id');
+		return $html;
+
 		$html = $this->NetCommonsForm->label(
 			'CalendarActionPlan.plan_room_id' . Inflector::camelize('room_id'),
 			__d('calendars', 'Category') . $this->_View->element('NetCommons.required'));

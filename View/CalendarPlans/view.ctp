@@ -103,10 +103,12 @@ echo $this->element('Calendars.scripts');
 			</div>
 
 			<?php /* 公開対象 */ ?>
+			<?php if (false):?>
 			<div data-calendar-name="dispRoomForOpen" class="calendar-eachplan-box">
 				<h3><?php echo __d('calendars', 'Category'); ?></h3>
 				<p><?php echo $this->CalendarCategory->getCategoryName($vars, $event); ?></p>
 			</div><!-- おわり-->
+			<?php endif;?>
 
 			<?php /* 共有者 */ ?>
 			<?php if ($this->CalendarShareUsers->isShareEvent($event)): ?>
