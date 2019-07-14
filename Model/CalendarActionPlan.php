@@ -456,6 +456,40 @@ class CalendarActionPlan extends CalendarsAppModel {
 					'message' => sprintf(__d('calendars',
 						'%d character limited. (location)'), CalendarsComponent::CALENDAR_VALIDATOR_TITLE_LEN),
 				),
+				'notBlank' => [
+					'rule' => ['notBlank'],
+					'required' => true,
+					'message' => __d('net_commons', 'Please input %s.',
+						__d('calendars', 'Location'))
+				]
+			),
+			'target_person' => array(
+				'max_length' => array(
+					'rule' => array('maxLength', CalendarsComponent::CALENDAR_VALIDATOR_TITLE_LEN),
+					'required' => false,
+					'message' => sprintf(__d('calendars',
+						'%d character limited. (target person)'), CalendarsComponent::CALENDAR_VALIDATOR_TITLE_LEN),
+				),
+				'notBlank' => [
+					'rule' => ['notBlank'],
+					'required' => true,
+					'message' => __d('net_commons', 'Please input %s.',
+						__d('calendars', 'Target Person'))
+				]
+			),
+			'belongings' => array(
+				'max_length' => array(
+					'rule' => array('maxLength', CalendarsComponent::CALENDAR_VALIDATOR_TITLE_LEN),
+					'required' => false,
+					'message' => sprintf(__d('calendars',
+						'%d character limited. (belongings)'), CalendarsComponent::CALENDAR_VALIDATOR_TITLE_LEN),
+				),
+				'notBlank' => [
+					'rule' => ['notBlank'],
+					'required' => true,
+					'message' => __d('net_commons', 'Please input %s.',
+						__d('calendars', 'Target Person'))
+				]
 			),
 			'contact' => array(
 				'rule1' => array(

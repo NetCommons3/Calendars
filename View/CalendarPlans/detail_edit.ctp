@@ -137,6 +137,7 @@ $jsParameters = array(
 						'type' => 'text',
 						'label' => __d('calendars', 'Location'),
 						'div' => false,
+						'required' => true
 					)); ?>
 				</div>
 			</div>
@@ -147,7 +148,8 @@ $jsParameters = array(
 					'label' => __d('calendars', 'Target Person'),
 					'div' => [
 						'class' => 'col-xs-12'
-					]
+					],
+					'required' => true
 				]);?>
 			</div>
 			<?php // 持ち物?>
