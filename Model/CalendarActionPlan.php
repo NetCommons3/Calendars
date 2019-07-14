@@ -173,6 +173,9 @@ class CalendarActionPlan extends CalendarsAppModel {
 		'detail_end_datetime' => array(
 			'type' => 'string', 'default' => ''), //YYYY-MM-DD or YYYY-MM-DD hh:mm
 
+		'target_person' => ['type' => 'string', 'default' => ''],
+		'belongings' => ['type' => 'string', 'default' => ''],
+
 		//公開対象
 		'plan_room_id' => array(
 			'type' => 'integer', 'null' => false, 'default' => '0', 'unsigned' => false),
@@ -649,6 +652,7 @@ class CalendarActionPlan extends CalendarsAppModel {
 				'title', 'title_icon',		//FIXME: insert/update側に追加実装しないといけない項目
 				'location', 'contact', 'description',
 				'enable_email', 'email_send_timing', 'status',
+				'target_person', 'belongings'
 			);
 			foreach ($fields as $field) {
 				$planParam[$field] = $data[$this->alias][$field];

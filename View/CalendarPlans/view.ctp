@@ -79,6 +79,22 @@ echo $this->element('Calendars.scripts');
 			</div><!-- おわり-->
 			<?php endif; ?>
 
+			<?php //対象者 ?>
+			<div class="calendar-eachplan-box">
+				<h3><?=__d('calendars', 'Target Person')?></h3>
+				<p>
+					<?= $event['CalendarEvent']['target_person'];?>
+				</p>
+			</div>
+
+			<?php //持ち物 ?>
+			<div class="calendar-eachplan-box">
+				<h3><?=__d('calendars', 'Belongings')?></h3>
+				<p>
+					<?= $event['CalendarEvent']['belongings'];?>
+				</p>
+			</div>
+
 			<?php /* 公開対象 */ ?>
 			<div data-calendar-name="dispRoomForOpen" class="calendar-eachplan-box">
 				<h3><?php echo __d('calendars', 'Category'); ?></h3>

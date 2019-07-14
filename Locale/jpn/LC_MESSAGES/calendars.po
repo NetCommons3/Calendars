@@ -1216,3 +1216,9 @@ msgstr "終了日時"
 
 msgid "You can not set sharers."
 msgstr "予定の共有者を設定する権限がありません。"
+
+msgid "Target Person"
+msgstr "対象者"
+
+msgid "Belongings"
+msgstr "持ち物"

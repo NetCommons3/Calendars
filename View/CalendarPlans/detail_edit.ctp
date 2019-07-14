@@ -130,6 +130,23 @@ $jsParameters = array(
 				</div>
 			</div><!-- end form-group-->
 
+			<div class="form-group">
+				<?php echo $this->NetCommonsForm->input('CalendarActionPlan.target_person', [
+					'label' => __d('calendars', 'Target Person'),
+					'div' => [
+						'class' => 'col-xs-12'
+					]
+				]);?>
+			</div>
+			<div class="form-group">
+				<?php echo $this->NetCommonsForm->input('CalendarActionPlan.belongings', [
+					'label' => __d('calendars', 'Belongings'),
+					'div' => [
+						'class' => 'col-xs-12'
+					]
+				]);?>
+			</div>
+
 			<?php /* 予定の対象空間選択 */ ?>
 			<div class="form-group" data-calendar-name="selectRoomForOpen">
 				<div class="col-xs-12">

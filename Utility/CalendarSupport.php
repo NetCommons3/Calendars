@@ -281,6 +281,8 @@ class CalendarSupport {
 				'edit_rrule' => 0,
 				'title' => '',
 				'title_icon' => '',
+				'target_person' => '',
+				'belongings' => '',
 				'enable_time' => $enableTime,
 				//YYYY-MM-DD hh:mm
 				'detail_start_datetime' =>
@@ -412,6 +414,9 @@ class CalendarSupport {
 				'edit_rrule' => 0,	//tableにはない項目なのでinitと同じ値
 				'title' => $event['CalendarEvent']['title'],
 				'title_icon' => $event['CalendarEvent']['title_icon'],
+				'target_person' => $event['CalendarEvent']['target_person'],
+				'belongings' => $event['CalendarEvent']['belongings'],
+
 				'enable_time' => ($event['CalendarEvent']['is_allday']) ? 0 : 1,
 				'easy_start_date' => substr($userStartDatetime, 0, 10), //YYYY-MM-DD
 				'easy_hour_minute_from' => substr($userStartDatetime, 11, 5), //hh:mm
