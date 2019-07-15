@@ -143,12 +143,25 @@ $jsParameters = array(
 
 			<?php // 対象者 ?>
 			<div class="form-group">
-				<?php echo $this->NetCommonsForm->input('CalendarActionPlan.target_person', [
-					'label' => __d('calendars', 'Target Person'),
-					'div' => [
-						'class' => 'col-xs-12'
-					]
-				]);?>
+				<div class="col-xs-12">
+					<?php echo $this->NetCommonsForm->label(null, __d('calendars', 'Target Person'));?>
+					<div>
+						<?php echo $this->NetCommonsForm->input('CalendarActionPlan.target_person_grade', [
+							'label' => false,
+							'placeholder' => __d('calendars', 'Grade'),
+							'div' => [
+								'class' => 'col-xs-6'
+							]
+						]);?>
+						<?php echo $this->NetCommonsForm->input('CalendarActionPlan.target_person_class_room', [
+							'label' => false,
+							'placeholder' => __d('calendars', 'Class room'),
+							'div' => [
+								'class' => 'col-xs-6'
+							]
+						]);?>
+					</div>
+				</div>
 			</div>
 			<?php // 持ち物?>
 			<div class="form-group">

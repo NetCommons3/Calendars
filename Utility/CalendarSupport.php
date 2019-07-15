@@ -281,7 +281,8 @@ class CalendarSupport {
 				'edit_rrule' => 0,
 				'title' => '',
 				'title_icon' => '',
-				'target_person' => '',
+				'target_person_grade' => '',
+				'target_person_class_room' => '',
 				'belongings' => '',
 				'enable_time' => $enableTime,
 				//YYYY-MM-DD hh:mm
@@ -414,7 +415,8 @@ class CalendarSupport {
 				'edit_rrule' => 0,	//tableにはない項目なのでinitと同じ値
 				'title' => $event['CalendarEvent']['title'],
 				'title_icon' => $event['CalendarEvent']['title_icon'],
-				'target_person' => $event['CalendarEvent']['target_person'],
+				'target_person_grade' => $event['CalendarEvent']['target_person_grade'],
+				'target_person_class_room' => $event['CalendarEvent']['target_person_class_room'],
 				'belongings' => $event['CalendarEvent']['belongings'],
 
 				'enable_time' => ($event['CalendarEvent']['is_allday']) ? 0 : 1,

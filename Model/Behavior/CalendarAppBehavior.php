@@ -381,7 +381,8 @@ class CalendarAppBehavior extends ModelBehavior {
 		$keys = array(
 			'title',
 			'title_icon',
-			'target_person',
+			'target_person_grade',
+			'target_person_class_room',
 			'belongings',
 			'location',
 			'contact',
@@ -423,7 +424,8 @@ class CalendarAppBehavior extends ModelBehavior {
 			'target_user' => Current::read('User.id'),
 			'title' => '',
 			'title_icon' => '',
-			'target_person' => '',
+			'target_person_grade' => '',
+			'target_person_class_room' => '',
 			'belongings' => '',
 			'location' => '',
 			'contact' => '',
@@ -458,7 +460,8 @@ class CalendarAppBehavior extends ModelBehavior {
 		$eventData['CalendarEvent']['target_user'] = $params['target_user'];
 		$eventData['CalendarEvent']['title'] = $params['title'];
 		$eventData['CalendarEvent']['title_icon'] = $params['title_icon'];
-		$eventData['CalendarEvent']['target_person'] = $params['target_person'];
+		$eventData['CalendarEvent']['target_person_grade'] = $params['target_person_grade'];
+		$eventData['CalendarEvent']['target_person_class_room'] = $params['target_person_class_room'];
 		$eventData['CalendarEvent']['belongings'] = $params['belongings'];
 		$eventData['CalendarEvent']['is_allday'] = $params['is_allday'];
 		$eventData['CalendarEvent']['start_date'] = $params['start_date'];

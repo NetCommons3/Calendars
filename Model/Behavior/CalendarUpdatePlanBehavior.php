@@ -719,7 +719,8 @@ class CalendarUpdatePlanBehavior extends CalendarAppBehavior {
 		//タイトル、場所、連絡先、詳細は編集画面の値を使う
 		$event['CalendarEvent']['title'] = $eventData['CalendarEvent']['title'];
 		$event['CalendarEvent']['title_icon'] = $eventData['CalendarEvent']['title_icon'];
-		$event['CalendarEvent']['target_person'] = $eventData['CalendarEvent']['target_person'];
+		$event['CalendarEvent']['target_person_grade'] = $eventData['CalendarEvent']['target_person_grade'];
+		$event['CalendarEvent']['target_person_class_room'] = $eventData['CalendarEvent']['target_person_class_room'];
 		$event['CalendarEvent']['belongings'] = $eventData['CalendarEvent']['belongings'];
 
 		$event['CalendarEvent']['location'] = $eventData['CalendarEvent']['location'];

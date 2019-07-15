@@ -1220,5 +1220,20 @@ msgstr "予定の共有者を設定する権限がありません。"
 msgid "Target Person"
 msgstr "対象者"
 
+msgid "Grade"
+msgstr "学年"
+
+msgid "Class room"
+msgstr "クラス"
+
 msgid "Belongings"
 msgstr "持ち物"
+
+msgid "%d character limited. (grade)"
+msgstr "学年は最大 %d 文字です。"
+
+msgid "%d character limited. (class room)"
+msgstr "クラスは最大 %d 文字です。"
+
+msgid "%d character limited. (belongings)"
+msgstr "持ち物は最大 %d 文字です。"

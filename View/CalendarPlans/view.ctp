@@ -87,27 +87,31 @@ echo $this->element('Calendars.scripts');
 			<?php endif; ?>
 
 			<?php //対象者 ?>
-			<div class="calendar-eachplan-box">
-				<h3><?=__d('calendars', 'Target Person')?></h3>
-				<p>
-					<?= $event['CalendarEvent']['target_person'];?>
-				</p>
-			</div>
+			<?php if ($event['CalendarEvent']['target_person_grade'] || $event['CalendarEvent']['target_person_class_room']):?>
+				<div class="calendar-eachplan-box">
+					<h3><?=__d('calendars', 'Target Person')?></h3>
+					<p>
+						<?= $event['CalendarEvent']['target_person_grade'];?> <?= $event['CalendarEvent']['target_person_class_room'] ?>
+					</p>
+				</div>
+			<?php endif?>
 
 			<?php //持ち物 ?>
-			<div class="calendar-eachplan-box">
-				<h3><?=__d('calendars', 'Belongings')?></h3>
-				<p>
-					<?= $event['CalendarEvent']['belongings'];?>
-				</p>
-			</div>
+			<?php if ($event['CalendarEvent']['belongings']):?>
+				<div class="calendar-eachplan-box">
+					<h3><?=__d('calendars', 'Belongings')?></h3>
+					<p>
+						<?= $event['CalendarEvent']['belongings'];?>
+					</p>
+				</div>
+			<?php endif?>
 
-			<?php /* 公開対象 */ ?>
+			<?php /* 公開対象  非表示にしてる*/ ?>
 			<?php if (false):?>
-			<div data-calendar-name="dispRoomForOpen" class="calendar-eachplan-box">
-				<h3><?php echo __d('calendars', 'Category'); ?></h3>
-				<p><?php echo $this->CalendarCategory->getCategoryName($vars, $event); ?></p>
-			</div><!-- おわり-->
+				<div data-calendar-name="dispRoomForOpen" class="calendar-eachplan-box">
+					<h3><?php echo __d('calendars', 'Category'); ?></h3>
+					<p><?php echo $this->CalendarCategory->getCategoryName($vars, $event); ?></p>
+				</div><!-- おわり-->
 			<?php endif;?>
 
 			<?php /* 共有者 */ ?>

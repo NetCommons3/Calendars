@@ -173,7 +173,8 @@ class CalendarActionPlan extends CalendarsAppModel {
 		'detail_end_datetime' => array(
 			'type' => 'string', 'default' => ''), //YYYY-MM-DD or YYYY-MM-DD hh:mm
 
-		'target_person' => ['type' => 'string', 'default' => ''],
+		'target_person_grade' => ['type' => 'string', 'default' => ''],
+		'target_person_class_room' => ['type' => 'string', 'default' => ''],
 		'belongings' => ['type' => 'string', 'default' => ''],
 
 		//公開対象
@@ -457,6 +458,30 @@ class CalendarActionPlan extends CalendarsAppModel {
 						'%d character limited. (location)'), CalendarsComponent::CALENDAR_VALIDATOR_TITLE_LEN),
 				),
 			),
+			'target_person_grade' => array(
+				'max_length' => array(
+					'rule' => array('maxLength', CalendarsComponent::CALENDAR_VALIDATOR_TITLE_LEN),
+					'required' => false,
+					'message' => sprintf(__d('calendars',
+						'%d character limited. (grade)'), CalendarsComponent::CALENDAR_VALIDATOR_TITLE_LEN),
+				),
+			),
+			'target_person_class_room' => array(
+				'max_length' => array(
+					'rule' => array('maxLength', CalendarsComponent::CALENDAR_VALIDATOR_TITLE_LEN),
+					'required' => false,
+					'message' => sprintf(__d('calendars',
+						'%d character limited. (class room)'), CalendarsComponent::CALENDAR_VALIDATOR_TITLE_LEN),
+				),
+			),
+			'belongings' => array(
+				'max_length' => array(
+					'rule' => array('maxLength', CalendarsComponent::CALENDAR_VALIDATOR_TITLE_LEN),
+					'required' => false,
+					'message' => sprintf(__d('calendars',
+						'%d character limited. (belongings)'), CalendarsComponent::CALENDAR_VALIDATOR_TITLE_LEN),
+				),
+			),
 			'contact' => array(
 				'rule1' => array(
 					'rule' => array('maxLength', CalendarsComponent::CALENDAR_VALIDATOR_TITLE_LEN),
@@ -652,7 +677,7 @@ class CalendarActionPlan extends CalendarsAppModel {
 				'title', 'title_icon',		//FIXME: insert/update側に追加実装しないといけない項目
 				'location', 'contact', 'description',
 				'enable_email', 'email_send_timing', 'status',
-				'target_person', 'belongings'
+				'target_person_grade', 'target_person_class_room', 'belongings'
 			);
 			foreach ($fields as $field) {
 				$planParam[$field] = $data[$this->alias][$field];
