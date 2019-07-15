@@ -1222,9 +1222,3 @@ msgstr "対象者"
 
 msgid "Belongings"
 msgstr "持ち物"
-
-msgid "%d character limited. (target person)"
-msgstr "対象者は最大 %d 文字です。"
-
-msgid "%d character limited. (belongings)"
-msgstr "持ち物は最大 %d 文字です。"
