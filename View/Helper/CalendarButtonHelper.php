@@ -208,6 +208,20 @@ class CalendarButtonHelper extends AppHelper {
 				'day' => $vars['day'],
 			)
 		));
+		// 実績の追加ボタン
+		Configure::load('Calendars.related_blog');
+		$blogFrameId = Configure::read('Calendars.relatedBlog.frame_id');
+		$html .= '&nbsp;';
+		$html .= $this->LinkButton->add('実績の追加', array(
+			'plugin' => 'blogs',
+			'controller' => 'blog_entries_edit',
+			'action' => 'add',
+			'frame_id' => $blogFrameId,
+			'?' => [
+				'event_key' => $event['CalendarEvent']['key']
+			]
+		));
+
 		return $html;
 	}
 
