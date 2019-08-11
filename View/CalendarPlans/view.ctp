@@ -8,6 +8,13 @@
  * @license http://www.netcommons.org/license.txt NetCommons License
  * @copyright Copyright 2014, NetCommons Project
  */
+
+/** @var BlogEntry $blogEntryModel */
+$blogEntryModel = ClassRegistry::init('Blogs.BlogEntry');
+$blogEntry = $blogEntryModel->getByCalendarEventKey($event['CalendarEvent']['key']);
+Configure::load('Calendars.related_blog');
+$blogFrameId = Configure::read('Calendars.relatedBlog.frame_id');
+
 echo $this->element('Calendars.scripts');
 ?>
 
@@ -37,6 +44,32 @@ echo $this->element('Calendars.scripts');
 		<?php if (empty($event['CalendarEventContent'])) : ?>
 		<div class="pull-right">
 			<?php echo $this->CalendarButton->getEditButton($vars, $event);?>
+
+			<?php
+			if (!$blogEntry) {
+				$roomId = $event['CalendarEvent']['room_id'];
+				// それ以外の時
+				$canEdit = CalendarPermissiveRooms::isEditable($roomId);
+				$canCreate = CalendarPermissiveRooms::isCreatable($roomId);
+				// 表示ルームにおける自分の権限がeditable以上なら無条件に編集可能
+				// creatbleのとき=自分が作ったデータならOK
+				if ($canEdit ||
+					($canCreate && $event['CalendarEvent']['created_user'] == Current::read('User.id'))) {
+					// 実績の追加ボタン
+					echo $this->LinkButton->add('実績の追加', array(
+						'plugin' => 'blogs',
+						'controller' => 'blog_entries_edit',
+						'action' => 'add',
+						'frame_id' => $blogFrameId,
+						'?' => [
+							'event_key' => $event['CalendarEvent']['key']
+						]
+					));
+				}
+			}
+			?>
+
+
 		</div>
 		<?php endif; ?>
 	</header>
@@ -137,6 +170,7 @@ echo $this->element('Calendars.scripts');
 			</div><!-- おわり-->
 			<?php endif; ?>
 
+
 			<div data-calendar-name="writer" class="calendar-eachplan-box">
 				<h3><?php echo __d('calendars', 'Author'); ?></h3>
 				<p><?php echo $this->DisplayUser->handleLink($event, array('avatar' => true)); ?></p>
@@ -153,6 +187,27 @@ echo $this->element('Calendars.scripts');
 				<p><?php echo $this->CalendarLink->getSourceLink($vars, $event); ?></p>
 			</div><!-- おわり-->
 			<?php endif; ?>
+
+			<?php if ($blogEntry): ?>
+				<div class="text-center">
+					<?php echo $this->NetCommonsHtml->link(
+						h($blogEntry['BlogEntry']['title']),
+						[
+							'plugin' => 'blogs',
+							'controller' => 'blog_entries',
+							'action' => 'view',
+							'block_id' => $blogEntry['BlogEntry']['block_id'],
+							'key' => $blogEntry['BlogEntry']['key'],
+							'frame_id' => $blogFrameId
+
+						],
+						[
+							'class' => ['btn', 'btn-default', 'btn-lg']
+						]
+					); ?>
+				</div>
+			<?php endif; ?>
+
 		</div>
 	</div>
 </article>
