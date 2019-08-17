@@ -10,10 +10,10 @@
  */
 
 /** @var BlogEntry $blogEntryModel */
-$blogEntryModel = ClassRegistry::init('Blogs.BlogEntry');
-$blogEntry = $blogEntryModel->getByCalendarEventKey($event['CalendarEvent']['key']);
+//$blogEntryModel = ClassRegistry::init('Blogs.BlogEntry');
+//$blogEntry = $blogEntryModel->getByCalendarEventKey($event['CalendarEvent']['key']);
 Configure::load('Calendars.related_blog');
-$blogFrameId = Configure::read('Calendars.relatedBlog.frame_id');
+$blogBlockId = Configure::read('Calendars.relatedBlog.block_id');
 
 echo $this->element('Calendars.scripts');
 ?>
@@ -59,8 +59,9 @@ echo $this->element('Calendars.scripts');
 					'plugin' => 'blogs',
 					'controller' => 'blog_entries_edit',
 					'action' => 'add',
-					'frame_id' => $blogFrameId,
+					'block_id' => $blogBlockId,
 					'?' => [
+						'page_id' => Current::read('Page.id'),
 						'event_key' => $event['CalendarEvent']['key']
 					]
 				));
@@ -186,25 +187,25 @@ echo $this->element('Calendars.scripts');
 			</div><!-- おわり-->
 			<?php endif; ?>
 
-			<?php if ($blogEntry): ?>
-				<div class="text-center">
-					<?php echo $this->NetCommonsHtml->link(
-						h($blogEntry['BlogEntry']['title']),
-						[
-							'plugin' => 'blogs',
-							'controller' => 'blog_entries',
-							'action' => 'view',
-							'block_id' => $blogEntry['BlogEntry']['block_id'],
-							'key' => $blogEntry['BlogEntry']['key'],
-							'frame_id' => $blogFrameId
-
-						],
-						[
-							'class' => ['btn', 'btn-default', 'btn-lg']
-						]
-					); ?>
-				</div>
-			<?php endif; ?>
+			<?php //if ($blogEntry): ?>
+			<!--	<div class="text-center">-->
+			<!--		--><?php //echo $this->NetCommonsHtml->link(
+			//			h($blogEntry['BlogEntry']['title']),
+			//			[
+			//				'plugin' => 'blogs',
+			//				'controller' => 'blog_entries',
+			//				'action' => 'view',
+			//				'block_id' => $blogEntry['BlogEntry']['block_id'],
+			//				'key' => $blogEntry['BlogEntry']['key'],
+			//				'frame_id' => $blogFrameId
+			//
+			//			],
+			//			[
+			//				'class' => ['btn', 'btn-default', 'btn-lg']
+			//			]
+			//		); ?>
+			<!--	</div>-->
+			<?php //endif; ?>
 
 		</div>
 	</div>
