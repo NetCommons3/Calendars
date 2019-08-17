@@ -46,26 +46,24 @@ echo $this->element('Calendars.scripts');
 			<?php echo $this->CalendarButton->getEditButton($vars, $event);?>
 
 			<?php
-			if (!$blogEntry) {
-				$roomId = $event['CalendarEvent']['room_id'];
-				// それ以外の時
-				$canEdit = CalendarPermissiveRooms::isEditable($roomId);
-				$canCreate = CalendarPermissiveRooms::isCreatable($roomId);
-				// 表示ルームにおける自分の権限がeditable以上なら無条件に編集可能
-				// creatbleのとき=自分が作ったデータならOK
-				if ($canEdit ||
-					($canCreate && $event['CalendarEvent']['created_user'] == Current::read('User.id'))) {
-					// 実績の追加ボタン
-					echo $this->LinkButton->add('実績の追加', array(
-						'plugin' => 'blogs',
-						'controller' => 'blog_entries_edit',
-						'action' => 'add',
-						'frame_id' => $blogFrameId,
-						'?' => [
-							'event_key' => $event['CalendarEvent']['key']
-						]
-					));
-				}
+			$roomId = $event['CalendarEvent']['room_id'];
+			// それ以外の時
+			$canEdit = CalendarPermissiveRooms::isEditable($roomId);
+			$canCreate = CalendarPermissiveRooms::isCreatable($roomId);
+			// 表示ルームにおける自分の権限がeditable以上なら無条件に編集可能
+			// creatbleのとき=自分が作ったデータならOK
+			if ($canEdit ||
+				($canCreate && $event['CalendarEvent']['created_user'] == Current::read('User.id'))) {
+				// 実績の追加ボタン
+				echo $this->LinkButton->add('実績の追加', array(
+					'plugin' => 'blogs',
+					'controller' => 'blog_entries_edit',
+					'action' => 'add',
+					'frame_id' => $blogFrameId,
+					'?' => [
+						'event_key' => $event['CalendarEvent']['key']
+					]
+				));
 			}
 			?>
 
