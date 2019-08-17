@@ -74,7 +74,7 @@ class CalendarExposeRoomBehavior extends CalendarAppBehavior {
 			} else {	//公開空間またはグループ空間(プライベートスペース以外）
 
 				$room = $this->getRoomsOfSpace($model, $spaceId);
-				$roomTree =  $this->getRoomTreeOfSpace(
+				$roomTree = $this->getRoomTreeOfSpace(
 					$model, $spaces[$spaceId]['Room']['id'], $room);
 
 				list($options, $spaceNameOfRooms, $allRoomNames) =
