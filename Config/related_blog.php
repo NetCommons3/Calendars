@@ -1,5 +1,5 @@
 <?php
 
 $config['Calendars.relatedBlog'] = [
-	'block_id' => 13
+	'block_id' => 11
 ];
