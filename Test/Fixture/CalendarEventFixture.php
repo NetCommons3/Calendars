@@ -31,6 +31,11 @@ class CalendarEventFixture extends CakeTestFixture {
 			'title' => 'calendarplan1',
 			'title_icon' => '/net_commons/img/title_icon/10_010_new.svg',
 			'location' => 'Lorem ipsum dolor sit amet',
+
+			'target_person_grade' => '学年',
+			'target_person_class_room' => 'クラス',
+			'belongings' => '持ち物',
+
 			'contact' => 'Lorem ipsum dolor sit amet',
 			'description' => 'testdescription',
 			'is_allday' => true,
