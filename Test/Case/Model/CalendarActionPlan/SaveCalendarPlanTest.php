@@ -143,6 +143,10 @@ class CalendarActionPlanSaveCalendarPlanTest extends NetCommonsModelTestCase {
 				'contact' => '',
 				'description' => '',
 				'timezone_offset' => 'Asia/Tokyo',
+				'target_person_grade' => '学年',
+				'target_person_class_room' => 'クラス',
+				'belongings' => '持ち物',
+
 			),
 			'CalendarActionPlanForDisp' => array(
 				'detail_start_datetime' => '2016-07-28 11:00',
