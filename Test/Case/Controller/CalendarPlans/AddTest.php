@@ -151,6 +151,10 @@ class CalendarPlansControllerAddTest extends WorkflowControllerAddTest {
 				'contact' => '',
 				'description' => '',
 				'timezone_offset' => 'Asia/Tokyo',
+				'target_person_grade' => '学年',
+				'target_person_class_room' => 'クラス',
+				'belongings' => '持ち物',
+
 			),
 			'WorkflowComment' => array(
 				'comment' => 'WorkflowComment save test'
