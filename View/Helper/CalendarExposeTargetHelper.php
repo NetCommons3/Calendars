@@ -84,38 +84,38 @@ class CalendarExposeTargetHelper extends AppHelper {
 
 		$html = $this->NetCommonsForm->hidden('CalendarActionPlan.plan_room_id');
 		return $html;
-
-		$html = $this->NetCommonsForm->label(
-			'CalendarActionPlan.plan_room_id' . Inflector::camelize('room_id'),
-			__d('calendars', 'Category') . $this->_View->element('NetCommons.required'));
-
-		// 発行権限がなくて、かつ、すでに発行済みデータの場合は空間変更を認めない
-		// 固定的な文字列と、hiddenを設定して返す
-		if (isset($event['CalendarEvent']['is_published']) &&
-			$event['CalendarEvent']['is_published'] &&
-			!$this->CalendarWorkflow->canDelete($event)) {
-			$html .= '<div>';
-			$html .= $this->CalendarCategory->getCategoryName($vars, $event);
-			$html .= '<span class="help-block">';
-			$html .= __d('calendars', 'You can not change the target space  after published.');
-			$html .= '</span>';
-			$html .= $this->NetCommonsForm->hidden('CalendarActionPlan.plan_room_id');
-			$html .= '</div>';
-		} else {
-			$html .= $this->NetCommonsForm->select('CalendarActionPlan.plan_room_id', $targetRooms, array(
-				//select-expose-targetクラスをもつ要素のchangeをjqで捕まえています
-				'class' => 'form-control select-expose-target',
-				'empty' => false,
-				'required' => true,
-				//value値のoption要素がselectedになる。
-				'value' => $this->request->data['CalendarActionPlan']['plan_room_id'],
-				'data-frame-id' => $frameId,
-				'data-myself' => $myself,
-				'escape' => false,
-				'ng-model' => 'data.planRoomId'
-			));
-		}
-
-		return $html;
+		//
+		//$html = $this->NetCommonsForm->label(
+		//	'CalendarActionPlan.plan_room_id' . Inflector::camelize('room_id'),
+		//	__d('calendars', 'Category') . $this->_View->element('NetCommons.required'));
+		//
+		//// 発行権限がなくて、かつ、すでに発行済みデータの場合は空間変更を認めない
+		//// 固定的な文字列と、hiddenを設定して返す
+		//if (isset($event['CalendarEvent']['is_published']) &&
+		//	$event['CalendarEvent']['is_published'] &&
+		//	!$this->CalendarWorkflow->canDelete($event)) {
+		//	$html .= '<div>';
+		//	$html .= $this->CalendarCategory->getCategoryName($vars, $event);
+		//	$html .= '<span class="help-block">';
+		//	$html .= __d('calendars', 'You can not change the target space  after published.');
+		//	$html .= '</span>';
+		//	$html .= $this->NetCommonsForm->hidden('CalendarActionPlan.plan_room_id');
+		//	$html .= '</div>';
+		//} else {
+		//	$html .= $this->NetCommonsForm->select('CalendarActionPlan.plan_room_id', $targetRooms, array(
+		//		//select-expose-targetクラスをもつ要素のchangeをjqで捕まえています
+		//		'class' => 'form-control select-expose-target',
+		//		'empty' => false,
+		//		'required' => true,
+		//		//value値のoption要素がselectedになる。
+		//		'value' => $this->request->data['CalendarActionPlan']['plan_room_id'],
+		//		'data-frame-id' => $frameId,
+		//		'data-myself' => $myself,
+		//		'escape' => false,
+		//		'ng-model' => 'data.planRoomId'
+		//	));
+		//}
+		//
+		//return $html;
 	}
 }
