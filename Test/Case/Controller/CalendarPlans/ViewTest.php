@@ -47,6 +47,8 @@ class CalendarPlansControllerViewTest extends WorkflowControllerViewTest {
 		'plugin.rooms.room_role_permission4test', //test
 		'plugin.calendars.plugins_role4test', //add
 		'plugin.calendars.room4test',
+
+		'plugin.calendars.blog4test',
 	);
 
 /**
