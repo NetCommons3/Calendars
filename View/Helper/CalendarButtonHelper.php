@@ -208,6 +208,7 @@ class CalendarButtonHelper extends AppHelper {
 				'day' => $vars['day'],
 			)
 		));
+
 		return $html;
 	}
 

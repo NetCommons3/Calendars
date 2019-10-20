@@ -1237,3 +1237,6 @@ msgstr "クラスは最大 %d 文字です。"
 
 msgid "%d character limited. (belongings)"
 msgstr "持ち物は最大 %d 文字です。"
+
+msgid "Add Achievement"
+msgstr "実績の追加"

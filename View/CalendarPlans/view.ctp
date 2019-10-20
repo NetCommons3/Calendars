@@ -8,6 +8,7 @@
  * @license http://www.netcommons.org/license.txt NetCommons License
  * @copyright Copyright 2014, NetCommons Project
  */
+
 echo $this->element('Calendars.scripts');
 ?>
 
@@ -37,6 +38,12 @@ echo $this->element('Calendars.scripts');
 		<?php if (empty($event['CalendarEventContent'])) : ?>
 		<div class="pull-right">
 			<?php echo $this->CalendarButton->getEditButton($vars, $event);?>
+
+			<?php
+			echo $this->CalendarRelatedBlog->addAchievementButton($event);
+			?>
+
+
 		</div>
 		<?php endif; ?>
 	</header>
@@ -137,6 +144,7 @@ echo $this->element('Calendars.scripts');
 			</div><!-- おわり-->
 			<?php endif; ?>
 
+
 			<div data-calendar-name="writer" class="calendar-eachplan-box">
 				<h3><?php echo __d('calendars', 'Author'); ?></h3>
 				<p><?php echo $this->DisplayUser->handleLink($event, array('avatar' => true)); ?></p>
@@ -153,6 +161,27 @@ echo $this->element('Calendars.scripts');
 				<p><?php echo $this->CalendarLink->getSourceLink($vars, $event); ?></p>
 			</div><!-- おわり-->
 			<?php endif; ?>
+
+			<?php //if ($blogEntry): ?>
+			<!--	<div class="text-center">-->
+			<!--		--><?php //echo $this->NetCommonsHtml->link(
+			//			h($blogEntry['BlogEntry']['title']),
+			//			[
+			//				'plugin' => 'blogs',
+			//				'controller' => 'blog_entries',
+			//				'action' => 'view',
+			//				'block_id' => $blogEntry['BlogEntry']['block_id'],
+			//				'key' => $blogEntry['BlogEntry']['key'],
+			//				'frame_id' => $blogFrameId
+			//
+			//			],
+			//			[
+			//				'class' => ['btn', 'btn-default', 'btn-lg']
+			//			]
+			//		); ?>
+			<!--	</div>-->
+			<?php //endif; ?>
+
 		</div>
 	</div>
 </article>
