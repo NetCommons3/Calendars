@@ -1,4 +1,11 @@
 <?php
+/**
+ * alter event
+ */
+
+/**
+ * Class AlterEventChangeTargetPersonColumns
+ */
 class AlterEventChangeTargetPersonColumns extends CakeMigration {
 
 /**
