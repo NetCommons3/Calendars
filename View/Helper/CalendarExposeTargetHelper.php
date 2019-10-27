@@ -79,8 +79,8 @@ class CalendarExposeTargetHelper extends AppHelper {
 			}
 		}
 		// 渡されたoptionから投稿権限のないものを外す
-		$rooms = CalendarPermissiveRooms::getCreatableRoomIdList();
-		$targetRooms = array_intersect_key($options, $rooms);
+		//$rooms = CalendarPermissiveRooms::getCreatableRoomIdList();
+		//$targetRooms = array_intersect_key($options, $rooms);
 
 		$html = $this->NetCommonsForm->hidden('CalendarActionPlan.plan_room_id');
 		return $html;
