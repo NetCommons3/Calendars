@@ -59,7 +59,7 @@ class CalendarPermissionComponent extends Component {
 				break;
 		}
 		// チェックで引っかかってしまったらForbidden
-		throw new ForbiddenException(__d('net_commons', 'Permission denied'));
+		throw new ForbiddenException();
 	}
 
 /**
