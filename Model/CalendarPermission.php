@@ -14,6 +14,7 @@
 
 App::uses('CalendarsAppModel', 'Calendars.Model');
 App::uses('BlockSettingBehavior', 'Blocks.Model/Behavior');
+App::uses('CalendarSpacesLib', 'Calendars.Lib');
 
 /**
  * Calendar Model
@@ -102,8 +103,7 @@ class CalendarPermission extends CalendarsAppModel {
  */
 	public function getCalendarRoomBlocks() {
 		//$spaceIds = array(Space::PUBLIC_SPACE_ID, Space::COMMUNITY_SPACE_ID);
-		$spaceModel = ClassRegistry::init('Rooms.Space');
-		$spaces = $spaceModel->getSpaces();
+		$spaces = CalendarSpacesLib::getSpaces();
 		foreach ($spaces as $space) {
 			// もとのコードがプライベートとサイト全体のスペース以外を取得していたのでここでも除外する
 			$spaceId = $space['Space']['id'];

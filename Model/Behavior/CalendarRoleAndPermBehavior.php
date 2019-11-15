@@ -172,7 +172,9 @@ class CalendarRoleAndPermBehavior extends CalendarAppBehavior {
 				'mail_editable_value' => true,
 			);
 		}
-		$room = $room[0];
+		if (! empty($room[0])) {
+			$room = $room[0];
+		}
 		$useWorkFlow = isset($room['CalendarPermission']['use_workflow'])
 			? $room['CalendarPermission']['use_workflow']
 			: null;

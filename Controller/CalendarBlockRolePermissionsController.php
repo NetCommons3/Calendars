@@ -10,6 +10,7 @@
  */
 
 App::uses('CalendarsAppController', 'Calendars.Controller');
+App::uses('CalendarSpacesLib', 'Calendars.Lib');
 
 /**
  * CalendarBlockRolePermissionsController
@@ -99,7 +100,7 @@ class CalendarBlockRolePermissionsController extends CalendarsAppController {
 		}
 		// ルーム一覧＋それぞれのカレンダー情報取り出し
 		// 空間情報
-		$spaces = $this->Room->getSpaces();
+		$spaces = CalendarSpacesLib::getSpaces();
 		$this->set('spaces', $spaces);
 
 		// デフォルトロール
