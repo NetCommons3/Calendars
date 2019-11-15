@@ -11,6 +11,7 @@
 
 App::uses('CalendarsAppController', 'Calendars.Controller');
 App::uses('CalendarsComponent', 'Calendars.Controller/Component');
+App::uses('CalendarSpacesLib', 'Calendars.Lib');
 
 /**
  * CalendarFrameSettingsController
@@ -171,7 +172,7 @@ class CalendarFrameSettingsController extends CalendarsAppController {
 		}
 
 		// 空間情報
-		$spaces = $this->Room->getSpaces();
+		$spaces = CalendarSpacesLib::getSpaces();
 		// ルームツリー
 		$spaceIds = array(Space::PUBLIC_SPACE_ID, Space::COMMUNITY_SPACE_ID);
 		foreach ($spaceIds as $spaceId) {
