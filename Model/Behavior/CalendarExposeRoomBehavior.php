@@ -11,6 +11,7 @@
 
 //プラグインセパレータ(.)とパスセバレータ(/)混在に注意
 App::uses('CalendarAppBehavior', 'Calendars.Model/Behavior');
+App::uses('CalendarSpacesLib', 'Calendars.Lib');
 
 /**
  * CalendarExposeRoomBehavior
@@ -35,7 +36,7 @@ class CalendarExposeRoomBehavior extends CalendarAppBehavior {
 			$model->loadModels(['Room' => 'Rooms.Room']);
 		}
 
-		$spaces = $model->Room->getSpaces();
+		$spaces = CalendarSpacesLib::getSpaces();
 		//$spaceIds = array(Space::PUBLIC_SPACE_ID, Space::COMMUNITY_SPACE_ID);
 
 		// $rooms, $roomTreeListはプライベート以外で必用
