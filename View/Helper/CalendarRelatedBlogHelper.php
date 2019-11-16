@@ -20,10 +20,14 @@ class CalendarRelatedBlogHelper extends AppHelper {
  * addAchievementButton
  *
  * @param array $event Event
- * @return void
+ * @return string
  */
 	public function addAchievementButton(array $event) {
 		$blogBlockId = $this->__findRelatedBlogBlockId();
+		$blogFrameId = $this->__findRelatedBlogFrameIdByBlockId($blogBlockId);
+		if (!$blogFrameId) {
+			return '';
+		}
 
 		$roomId = $event['CalendarEvent']['room_id'];
 		$canEdit = CalendarPermissiveRooms::isEditable($roomId);
@@ -39,6 +43,7 @@ class CalendarRelatedBlogHelper extends AppHelper {
 					'controller' => 'blog_entries_edit',
 					'action' => 'add',
 					'block_id' => $blogBlockId,
+					//'frame_id' => $blogFrameId,
 					'?' => [
 						'page_id' => Current::read('Page.id'),
 						'event_key' => $event['CalendarEvent']['key']
@@ -46,6 +51,7 @@ class CalendarRelatedBlogHelper extends AppHelper {
 				));
 			}
 		}
+		return '';
 	}
 
 /**
@@ -65,5 +71,20 @@ class CalendarRelatedBlogHelper extends AppHelper {
 			$blogBlockId = $blogModel->findBlockIdByKey($blogKey);
 		}
 		return $blogBlockId;
+	}
+
+	private function __findRelatedBlogFrameIdByBlockId($blockId) {
+		$frameModel = ClassRegistry::init('Frames.Frame');
+		$result = $frameModel->find('first', [
+			'conditions' => [
+				'Frame.block_id' => $blockId
+			],
+			'fields' => ['Frame.id'],
+			'recursive' => -1,
+		]);
+		if ($result) {
+			return $result['Frame']['id'];
+		}
+		return false;
 	}
 }
