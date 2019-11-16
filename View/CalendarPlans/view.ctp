@@ -113,12 +113,6 @@ echo $this->element('Calendars.scripts');
 				</div>
 			<?php endif?>
 
-			<?php /* 公開対象  非表示にしてる*/ ?>
-<!--			<div data-calendar-name="dispRoomForOpen" class="calendar-eachplan-box">-->
-<!--				<h3>--><?php //echo __d('calendars', 'Category'); ?><!--</h3>-->
-<!--				<p>--><?php //echo $this->CalendarCategory->getCategoryName($vars, $event); ?><!--</p>-->
-<!--			</div>-->
-
 			<?php /* 共有者 */ ?>
 			<?php if ($this->CalendarShareUsers->isShareEvent($event)): ?>
 			<div data-calendar-name="sharePersons" class="calendar-eachplan-box">
@@ -159,26 +153,6 @@ echo $this->element('Calendars.scripts');
 				<p><?php echo $this->CalendarLink->getSourceLink($vars, $event); ?></p>
 			</div><!-- おわり-->
 			<?php endif; ?>
-
-			<?php //if ($blogEntry): ?>
-			<!--	<div class="text-center">-->
-			<!--		--><?php //echo $this->NetCommonsHtml->link(
-			//			h($blogEntry['BlogEntry']['title']),
-			//			[
-			//				'plugin' => 'blogs',
-			//				'controller' => 'blog_entries',
-			//				'action' => 'view',
-			//				'block_id' => $blogEntry['BlogEntry']['block_id'],
-			//				'key' => $blogEntry['BlogEntry']['key'],
-			//				'frame_id' => $blogFrameId
-			//
-			//			],
-			//			[
-			//				'class' => ['btn', 'btn-default', 'btn-lg']
-			//			]
-			//		); ?>
-			<!--	</div>-->
-			<?php //endif; ?>
 
 		</div>
 	</div>
