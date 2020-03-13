@@ -91,7 +91,7 @@ class CalendarCommonHelper extends AppHelper {
 		// 「週表示」などで予定ではなく表題を表示するときに呼ばれることがある
 		// そんなときにはplan=nullでルームIDだけ指定されてくることがあるので存在チェックが欠かせない
 		if (empty($vars['spaceNameOfRooms'][$roomId]) ||
-			$plan['CalendarEvent']['pseudo_friend_share_plan']) {
+			!empty($plan['CalendarEvent']['pseudo_friend_share_plan'])) {
 			$html = $prefix . 'share';
 			return $html;
 		}

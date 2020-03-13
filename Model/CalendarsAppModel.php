@@ -241,17 +241,19 @@ class CalendarsAppModel extends AppModel {
 		//
 		$untilDateS = $data[$this->alias]['rrule_until'] . ' 00:00:00'; //Y-m-d H:i:s形式
 		$untilDateA = CalendarTime::transFromYmdHisToArray($untilDateS);
-		list($yearOfNextDay, $monthOfNextDay, $nextDay) =
-			CalendarTime::getNextDay($untilDateA['year'], $untilDateA['month'], $untilDateA['day']);
-		$nextDayOfUntilDateS =
-			sprintf("%04d-%02d-%02d 00:00:00", (int)$yearOfNextDay, (int)$monthOfNextDay,
-				(int)$nextDay);
-		//untilDateSの翌日00:00:00を作り出し、サーバー系に直す
-		$nctm = new NetCommonsTime();
-		$svrNxtDayOfUntilDtS =
-			$nctm->toServerDatetime($nextDayOfUntilDateS, $data[$this->alias]['timezone_offset']);
-		$ymdHis = CalendarTime::dt2CalDt($svrNxtDayOfUntilDtS);
-		$rrule['UNTIL'] = substr($ymdHis, 0, 8) . 'T' . substr($ymdHis, 8);
+		if (is_array($untilDateA)) {
+			list($yearOfNextDay, $monthOfNextDay, $nextDay) =
+				CalendarTime::getNextDay($untilDateA['year'], $untilDateA['month'], $untilDateA['day']);
+			$nextDayOfUntilDateS =
+				sprintf("%04d-%02d-%02d 00:00:00", (int)$yearOfNextDay, (int)$monthOfNextDay,
+					(int)$nextDay);
+			//untilDateSの翌日00:00:00を作り出し、サーバー系に直す
+			$nctm = new NetCommonsTime();
+			$svrNxtDayOfUntilDtS =
+				$nctm->toServerDatetime($nextDayOfUntilDateS, $data[$this->alias]['timezone_offset']);
+			$ymdHis = CalendarTime::dt2CalDt($svrNxtDayOfUntilDtS);
+			$rrule['UNTIL'] = substr($ymdHis, 0, 8) . 'T' . substr($ymdHis, 8);
+		}
 	}
 
 /**
