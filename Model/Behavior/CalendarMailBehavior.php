@@ -105,6 +105,11 @@ class CalendarMailBehavior extends CalendarAppBehavior {
 			MailSettingFixedPhrase::DEFAULT_TYPE, $data['CalendarEvent']['key'], 'calendars');
 
 		if ($isMailSend) {
+			//ワークフローコメントがある場合、saveQueue()で使用しているため、セットする
+			if (!empty($model->data['WorkflowComment']['comment'])) {
+				$model->CalendarEvent->data['WorkflowComment']['comment'] =
+							$model->data['WorkflowComment']['comment'];
+			}
 			// メールキュー作成
 			$model->CalendarEvent->saveQueue();
 			// キューからメール送信
