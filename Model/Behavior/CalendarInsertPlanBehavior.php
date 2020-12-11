@@ -148,7 +148,7 @@ class CalendarInsertPlanBehavior extends CalendarAppBehavior {
 			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
 		}
 
-		if (!$model->CalendarEvent->save($eventData, false)) {	//保存のみ
+		if (!$model->CalendarEvent->save(null, false)) {	//保存のみ
 			$model->validationErrors = array_merge(
 				$model->validationErrors, $model->CalendarEvent->validationErrors);
 			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));

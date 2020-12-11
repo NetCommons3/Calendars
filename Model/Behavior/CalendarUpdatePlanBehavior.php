@@ -401,7 +401,7 @@ class CalendarUpdatePlanBehavior extends CalendarAppBehavior {
 		//is_active調整処理を行う。（eventDataの値が一部変更されます）
 		$model->CalendarEvent->prepareActiveForUpd($eventData);
 
-		if (!$model->CalendarEvent->save($eventData,
+		if (!$model->CalendarEvent->save(null,
 			array(
 				'validate' => false,
 				'callbacks' => true,

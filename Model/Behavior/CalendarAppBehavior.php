@@ -156,7 +156,7 @@ class CalendarAppBehavior extends ModelBehavior {
 		//eventの保存。
 		//なお、追加情報(workflowcomment)は WFCのafterSave()で自動セットされる。
 		//
-		if (!$model->CalendarEvent->save($rEventData, false)) { //保存のみ
+		if (!$model->CalendarEvent->save(null, false)) { //保存のみ
 			$model->validationErrors = array_merge(
 				$model->validationErrors, $model->CalendarEvent->validationErrors);
 			throw new InternalErrorException(__d('net_commons', 'Internal Server Error'));
