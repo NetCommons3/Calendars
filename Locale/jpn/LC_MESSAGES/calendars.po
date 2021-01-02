@@ -589,6 +589,14 @@ msgstr "作成者"
 msgid "Date"
 msgstr "更新日時"
 
+#: Calendars/View/CalendarPlans/view.ctp:122
+msgid "Created datetime"
+msgstr "作成日時"
+
+#: Calendars/View/CalendarPlans/view.ctp:122
+msgid "Modified datetime"
+msgstr "更新日時"
+
 #: Calendars/View/Calendars/lmonthly.ctp:24
 #: Calendars/View/Calendars/smonthly.ctp:36
 #: Calendars/View/Helper/CalendarCommonHelper.php:40;392
