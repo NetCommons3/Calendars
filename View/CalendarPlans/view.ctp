@@ -76,14 +76,14 @@ echo $this->element('Calendars.scripts');
 				<label><?php echo __d('calendars', 'Repeat the event:'); ?></label>
 				<?php /* getStringRrule()で表示するものは直接入力値はつかわない。よってh()は不要 */ ?>
 				<span><?php echo $this->CalendarPlanRrule->getStringRrule($event['CalendarRrule']['rrule']); ?></span>
-			</div><!-- おわり-->
+			</div>
 			<?php endif; ?>
 
 			<?php /* 公開対象 */ ?>
 			<div data-calendar-name="dispRoomForOpen" class="calendar-eachplan-box">
 				<h3><?php echo __d('calendars', 'Category'); ?></h3>
 				<p><?php echo $this->CalendarCategory->getCategoryName($vars, $event); ?></p>
-			</div><!-- おわり-->
+			</div>
 
 			<?php /* 共有者 */ ?>
 			<?php if ($this->CalendarShareUsers->isShareEvent($event)): ?>
@@ -97,14 +97,14 @@ echo $this->element('Calendars.scripts');
 			<div data-calendar-name="showLocation" class="calendar-eachplan-box">
 				<h3><?php echo __d('calendars', 'Location'); ?></h3>
 				<p><?php echo h($event['CalendarEvent']['location']); ?></p>
-			</div><!-- おわり-->
+			</div>
 			<?php endif; ?>
 
 			<?php if ($event['CalendarEvent']['contact'] !== '') : ?>
 			<div data-calendar-name="showContact" class="calendar-eachplan-box">
 				<h3><?php echo __d('calendars', 'Contact'); ?></h3>
 				<p><?php echo h($event['CalendarEvent']['contact']); ?></p>
-			</div><!-- おわり-->
+			</div>
 			<?php endif; ?>
 
 			<?php if ($event['CalendarEvent']['description'] !== '') : ?>
@@ -112,24 +112,24 @@ echo $this->element('Calendars.scripts');
 				<h3><?php echo __d('calendars', 'Details'); ?></h3>
 				<?php /* ここにwysiwyigの内容がきます wysiwygの内容は下手にPタグでくくれない */ ?>
 				<?php echo $event['CalendarEvent']['description']; ?>
-			</div><!-- おわり-->
+			</div>
 			<?php endif; ?>
 
 			<div data-calendar-name="writer" class="calendar-eachplan-box">
 				<h3><?php echo __d('calendars', 'Author'); ?></h3>
 				<p><?php echo $this->DisplayUser->handleLink($event, array('avatar' => true)); ?></p>
-			</div><!-- おわり-->
+			</div>
 
 			<div data-calendar-name="updateDate" class="calendar-eachplan-box">
 				<h3><?php echo __d('calendars', 'Date'); ?></h3>
 				<p><?php echo h((new NetCommonsTime())->toUserDatetime($event['CalendarEvent']['modified'])); ?></p>
-			</div><!-- おわり-->
+			</div>
 
 			<?php if (! empty($event['CalendarEventContent'])) : ?>
 			<div data-calendar-name="source" class="calendar-eachplan-box">
 				<h3><?php echo __d('calendars', 'Source of plan'); ?></h3>
 				<p><?php echo $this->CalendarLink->getSourceLink($vars, $event); ?></p>
-			</div><!-- おわり-->
+			</div>
 			<?php endif; ?>
 		</div>
 	</div>
