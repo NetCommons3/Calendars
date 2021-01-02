@@ -116,14 +116,26 @@ echo $this->element('Calendars.scripts');
 			<?php endif; ?>
 
 			<div data-calendar-name="writer" class="calendar-eachplan-box">
-				<h3><?php echo __d('calendars', 'Author'); ?></h3>
+				<h3><?php echo __d('net_commons', 'Created user'); ?></h3>
 				<p><?php echo $this->DisplayUser->handleLink($event, array('avatar' => true)); ?></p>
 			</div>
 
-			<div data-calendar-name="updateDate" class="calendar-eachplan-box">
-				<h3><?php echo __d('calendars', 'Date'); ?></h3>
-				<p><?php echo h((new NetCommonsTime())->toUserDatetime($event['CalendarEvent']['modified'])); ?></p>
+			<div data-calendar-name="createDate" class="calendar-eachplan-box">
+				<h3><?php echo __d('calendars', 'Created datetime'); ?></h3>
+				<p><?php echo h((new NetCommonsTime())->toUserDatetime($event['CalendarEvent']['created'])); ?></p>
 			</div>
+
+			<?php if ($event['CalendarEvent']['modified'] !== $event['CalendarEvent']['created']) : ?>
+				<div data-calendar-name="updateUser" class="calendar-eachplan-box">
+					<h3><?php echo __d('net_commons', 'Modified user'); ?></h3>
+					<p><?php echo $this->DisplayUser->handleLink($event, array('avatar' => true), 'TrackableUpdater'); ?></p>
+				</div>
+
+				<div data-calendar-name="updateDate" class="calendar-eachplan-box">
+					<h3><?php echo __d('calendars', 'Modified datetime'); ?></h3>
+					<p><?php echo h((new NetCommonsTime())->toUserDatetime($event['CalendarEvent']['modified'])); ?></p>
+				</div>
+			<?php endif; ?>
 
 			<?php if (! empty($event['CalendarEventContent'])) : ?>
 			<div data-calendar-name="source" class="calendar-eachplan-box">
