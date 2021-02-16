@@ -373,7 +373,7 @@ class CalendarDeletePlanBehavior extends CalendarAppBehavior {
 		$rruleData['CalendarRrule'] = $curPlan['CalendarRrule'];
 		$calendarEvent = [];
 		foreach ($curPlan['CalendarEvent'] as $item) {
-			if ((int)$item['id'] === $curPlan['cur_event_id']) {
+			if ((int)$item['id'] === (int)$curPlan['cur_event_id']) {
 				$calendarEvent = $item;
 				break;
 			}

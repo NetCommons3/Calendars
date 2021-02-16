@@ -399,7 +399,7 @@ class CalendarUpdatePlanBehavior extends CalendarAppBehavior {
 		//（WFのbeforeSaveはUPDATEsaveでは発動されないことが分かっているので）
 		//よって、「ここ」UPDATEsaveで、prepareActiveForUpdを事前実行し、INSERTsaveでdelayさせた
 		//is_active調整処理を行う。（eventDataの値が一部変更されます）
-		$model->CalendarEvent->prepareActiveForUpd($eventData);
+		$model->CalendarEvent->prepareActiveForUpd($model->CalendarEvent->data);
 
 		if (!$model->CalendarEvent->save(null,
 			array(
@@ -510,7 +510,7 @@ class CalendarUpdatePlanBehavior extends CalendarAppBehavior {
 			////$eventIds = Hash::extract($newPlan['CalendarEvent'], '{n}[dtstart>=' . $baseDtstart . '].id');
 			$eventKeys = [];
 			foreach ($newPlan['CalendarEvent'] as $item) {
-				if ($newPlan['CalendarEvent']['dtstart'] >= $baseDtstart) {
+				if ($item['dtstart'] >= $baseDtstart) {
 					$eventKeys[] = $item['key'];
 				}
 			}

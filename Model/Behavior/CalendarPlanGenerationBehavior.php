@@ -32,7 +32,7 @@ class CalendarPlanGenerationBehavior extends CalendarAppBehavior {
  * @copyright Copyright 2015, NetCommons Project
  */
 	protected $_defaults = array(
-		);
+	);
 
 /**
  * 現世代の予定を作り出す
@@ -245,7 +245,8 @@ class CalendarPlanGenerationBehavior extends CalendarAppBehavior {
 		//例外追加）createdUserWhenUpdにnull以外の値（ユーザID)が入っていたら、
 		//keyが一致する過去世代予定の有無に関係なく、そのcreatedUserWhenUpdを、created_userに
 		//セットするようにした。
-		$model->CalendarEvent->prepareLatestCreatedForIns($eventData, $createdUserWhenUpd);
+		$model->CalendarEvent->prepareLatestCreatedForIns(
+				$model->CalendarEvent->data, $createdUserWhenUpd);
 
 		//子もsave（）で返ってくる。
 		$eventData = $model->CalendarEvent->save(null, false); //aaaaaaaaaaaaa

@@ -634,12 +634,6 @@ class CalendarEvent extends CalendarsAppModel {
 		}
 		//以後、eventがINSERT用であることが担保される。
 
-		////////////////////////////////////////////////////////
-		//is_latestの真の調整は、UPDATEsave発行直前までdelay  //
-		//させるため、ここでは暫定でfalse固定でいれておく。   //
-		////////////////////////////////////////////////////////
-		$event['CalendarEvent']['is_active'] = false; //is_activeの暫定offセット
-
 		///////////////////////////////////////////////////////
 		//ここで行うべきことは、作成者、作成日およびis_latest//
 		//の調整のみ。									   //
@@ -652,9 +646,22 @@ class CalendarEvent extends CalendarsAppModel {
 				'key' => $event['CalendarEvent']['key']
 			),
 		));
+
+		//////////////////////////////////////////////////////////
+		//is_latestの真の調整は、UPDATEsave発行直前までdelay    //
+		//させるため、ここでは暫定でfalse固定でいれておく。     //
+		//                                                      //
+		//⇒これ以降の編集の場合、正しく動作しないため、　　　  //
+		//　既存データがあるときは、is_activeの付替え処理を行う //
+		//////////////////////////////////////////////////////////
 		if ($created) {
+			//既存データがあるときは、is_activeを更新する
+			$this->prepareActiveForUpd($event);
 			$event['CalendarEvent']['created'] = $created['CalendarEvent']['created'];
 			$event['CalendarEvent']['created_user'] = $created['CalendarEvent']['created_user'];
+		} else {
+			//新規の場合は、デフォルトoff
+			$event['CalendarEvent']['is_active'] = false; //is_activeの暫定offセット
 		}
 
 		//カレンダー独自の例外追加１）
@@ -663,7 +670,7 @@ class CalendarEvent extends CalendarsAppModel {
 		//「へ」に変更すること。
 		//＝＞これを考慮したcreatedUserWhenUpdを使えばよい。
 		if ($createdUserWhenUpd !== null) {
-			$event['CalendarEvent']['created'] = $createdUserWhenUpd;
+			$event['CalendarEvent']['created_user'] = $createdUserWhenUpd;
 		}
 
 		//is_latestのセット
