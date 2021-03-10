@@ -348,6 +348,7 @@ class CalendarFrameSetting extends CalendarsAppModel {
 /**
  * カレンダーの予定(calendar_eventsテーブル)keyからframe_idを取得し、返す
  *
+ * @param string $eventKey $eventKey
  * @return int|null フレームID
  */
 	public function getFrameIdByEventKey($eventKey) {
