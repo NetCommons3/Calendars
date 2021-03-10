@@ -19,6 +19,10 @@ App::uses('Space', 'Rooms.Model');
 /**
  * CalendarFrameSetting Model
  *
+ * @property \Frame $Frame
+ * @property \CalendarFrameSettingSelectRoom $CalendarFrameSettingSelectRoom
+ * @property \CalendarEvent $CalendarEvent
+ *
  * @author AllCreator Co., Ltd. <info@allcreator.net>
  * @package NetCommons\Calendars\Model
  */
@@ -340,4 +344,44 @@ class CalendarFrameSetting extends CalendarsAppModel {
 			)
 		));
 	}
+
+/**
+ * カレンダーの予定(calendar_eventsテーブル)keyからframe_idを取得し、返す
+ *
+ * @return int|null フレームID
+ */
+	public function getFrameIdByEventKey($eventKey) {
+		$this->loadModels(['CalendarEvent' => 'Calendars.CalendarEvent']);
+
+		$event = $this->CalendarEvent->find('first', [
+			'recursive' => -1,
+			'fields' => [
+				$this->CalendarEvent->alias . '.room_id'
+			],
+			'conditions' => [
+				$this->CalendarEvent->alias . '.key' => $eventKey,
+				$this->CalendarEvent->alias . '.is_latest' => true,
+			],
+		]);
+		if (empty($event[$this->CalendarEvent->alias]['room_id'])) {
+			return null;
+		}
+
+		$frame = $this->Frame->find('first', [
+			'recursive' => -1,
+			'fields' => [
+				$this->Frame->alias . '.id'
+			],
+			'conditions' => [
+				$this->Frame->alias . '.plugin_key' => 'calendars',
+				$this->Frame->alias . '.room_id' => $event[$this->CalendarEvent->alias]['room_id'],
+			],
+			'order' => [
+				$this->Frame->alias . '.id' => 'asc',
+			],
+		]);
+
+		return $frame[$this->Frame->alias]['id'] ?? null;
+	}
+
 }
