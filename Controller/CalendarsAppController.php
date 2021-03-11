@@ -128,6 +128,14 @@ class CalendarsAppController extends AppController {
 				$vars['day'] = 1;
 			}
 		}
+
+		//日付チェックを行い、不正なら現在の日付をセットする
+		if (! checkdate($vars['month'], $vars['day'], $vars['year'])) {
+			$vars['year'] = (int)$userNowArray['year'];
+			$vars['month'] = (int)$userNowArray['month'];
+			$vars['day'] = (int)$userNowArray['day'];
+		}
+
 		$specDate = new DateTime(sprintf('%d-%d-%d', $vars['year'], $vars['month'], $vars['day']));
 		$vars['week'] = $specDate->format('w');
 		////$vars['dayOfTheWeek'] = date('w', strtotime($userNowYmdHis));	//date()は使わない
