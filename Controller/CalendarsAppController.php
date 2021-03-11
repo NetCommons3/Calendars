@@ -132,7 +132,7 @@ class CalendarsAppController extends AppController {
 			}
 		}
 
-		//日付チェックを行い、不正なら
+		//日付チェックを行い、不正ならthrowを投げる
 		if (! checkdate($vars['month'], $vars['day'], $vars['year'])) {
 			throw new BadRequestException(__d('net_commons', 'Bad Request'));
 		}
