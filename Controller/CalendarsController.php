@@ -143,7 +143,15 @@ class CalendarsController extends CalendarsAppController {
 	protected function _getWeeklyVars($vars) {
 		$this->_setCalendarCommonVars($vars);
 		$vars['selectRooms'] = array();	//マージ前の暫定
-		$vars['week'] = $this->_getQueryParam('week');
+
+		$week = $this->_getQueryParam('week');
+		if ($week > 0 && $week < 7) {
+			//1から6週まで許可する
+			//厳密には、6週もない月もあるが許容範囲とする
+			$vars['week'] = (int)$week;
+		} else {
+			$vars['week'] = 0;
+		}
 		return $vars;
 	}
 
