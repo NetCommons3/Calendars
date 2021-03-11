@@ -8,8 +8,16 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 App::uses('CalendarMonthlyHelper', 'Calendars.View/Helper');
+
 /**
  * Calendar daily Helper
+ *
+ * @property \NetCommonsFormHelper $NetCommonsForm
+ * @property \NetCommonsHtmlHelper $NetCommonsHtml
+ * @property \TitleIconHelper $TitleIcon
+ * @property \FormHelper $Form
+ * @property \CalendarCommonHelper $CalendarCommon
+ * @property \CalendarUrlHelper $CalendarUrl
  *
  * @author Allcreator Co., Ltd. <info@allcreator.net>
  * @package NetCommons\Calendars\View\Helper
@@ -35,12 +43,12 @@ class CalendarDailyHelper extends CalendarMonthlyHelper {
  *
  * スペース名取得
  *
- * @param array &$vars カレンダー情報
+ * @param array $vars カレンダー情報
  * @param int $roomId ルームID
  * @param int $languageId language_id
  * @return string
  */
-	public function getSpaceName(&$vars, $roomId, $languageId) {
+	public function getSpaceName($vars, $roomId, $languageId) {
 		if ($roomId == Space::getRoomIdRoot(Space::COMMUNITY_SPACE_ID)) {
 			return __d('calendars', 'All the members');
 		}
@@ -62,7 +70,7 @@ class CalendarDailyHelper extends CalendarMonthlyHelper {
  *
  * 予定概要群html取得
  *
- * @param array &$vars カレンダー情報
+ * @param array $vars カレンダー情報
  * @param int $year 年
  * @param int $month 月
  * @param int $day 日
@@ -71,7 +79,7 @@ class CalendarDailyHelper extends CalendarMonthlyHelper {
  * @param array $plans この日の予定群
  * @return string HTML
  */
-	public function getPlanSummariesHtml(&$vars, $year, $month, $day, $fromTime, $toTime, $plans) {
+	public function getPlanSummariesHtml($vars, $year, $month, $day, $fromTime, $toTime, $plans) {
 		$html = '';
 		foreach ($plans as $plan) {
 			//仕様
@@ -93,7 +101,7 @@ class CalendarDailyHelper extends CalendarMonthlyHelper {
  *
  * 予定（タイトル）html取得
  *
- * @param array &$vars カレンダー情報
+ * @param array $vars カレンダー情報
  * @param int $year 年
  * @param int $month 月
  * @param int $day 日
@@ -102,7 +110,7 @@ class CalendarDailyHelper extends CalendarMonthlyHelper {
  * @param array $plan 予定
  * @return string HTML
  */
-	public function getPlanTitleDailyListHtml(&$vars, $year, $month, $day, $fromTime, $toTime, $plan) {
+	public function getPlanTitleDailyListHtml($vars, $year, $month, $day, $fromTime, $toTime, $plan) {
 		$calendarPlanMark = $this->CalendarCommon->getPlanMarkClassName($vars, $plan);
 
 		$html = "<div class='calendar-plan-mark {$calendarPlanMark}'>";

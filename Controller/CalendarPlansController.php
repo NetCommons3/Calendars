@@ -560,7 +560,7 @@ class CalendarPlansController extends CalendarsAppController {
  */
 	protected function _getVarsForShow() {
 		$vars = array();
-		$this->_setCalendarCommonVars($vars);
+		$vars = $this->_setCalendarCommonVars($vars);
 
 		if (isset($this->request->params['key'])) {
 			$eventKey = $this->request->params['key'];

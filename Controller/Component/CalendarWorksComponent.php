@@ -91,11 +91,11 @@ class CalendarWorksComponent extends Component {
 	public function setCapForView2RequestData($capForView, $data) {
 		foreach ($capForView['CalendarActionPlan'] as $item => $val) {
 			if ($item === 'FREQ') {
-				$this->__setFreqData2RequestData($val, $data);
+				$data = $this->__setFreqData2RequestData($val, $data);
 				continue;
 			}
 			if ($item === 'TERM') {
-				$this->__setTermData2RequestData($val, $data);
+				$data = $this->__setTermData2RequestData($val, $data);
 				continue;
 			}
 
@@ -129,10 +129,10 @@ class CalendarWorksComponent extends Component {
  * 表示用配列内のFREQ配列から$dataへの反映
  *
  * @param array $freq 繰り返し情報
- * @param array &$data data
- * @return void
+ * @param array $data data
+ * @return array
  */
-	private function __setFreqData2RequestData($freq, &$data) {
+	private function __setFreqData2RequestData($freq, $data) {
 		$rrules = array(
 			'rrule_interval' => array('DAILY', 'WEEKLY', 'MONTHLY', 'YEARLY'),
 			'rrule_byday' => array('WEEKLY', 'MONTHLY', 'YEARLY'),
@@ -155,6 +155,8 @@ class CalendarWorksComponent extends Component {
 				}
 			}
 		}
+
+		return $data;
 	}
 
 /**
@@ -163,10 +165,10 @@ class CalendarWorksComponent extends Component {
  * 表示用配列内のTERM配列から$dataへの反映
  *
  * @param array $term 期限情報
- * @param array &$data data
- * @return void
+ * @param array $data data
+ * @return array
  */
-	private function __setTermData2RequestData($term, &$data) {
+	private function __setTermData2RequestData($term, $data) {
 		if (!isset($data['CalendarActionPlan']['rrule_term'])) {
 			if ($term['REPEAT_COUNT']) {
 				$data['CalendarActionPlan']['rrule_term'] = 'COUNT';
@@ -182,5 +184,7 @@ class CalendarWorksComponent extends Component {
 		if (!isset($data['CalendarActionPlan']['rrule_until'])) {
 			$data['CalendarActionPlan']['rrule_until'] = $term['UNTIL'];
 		}
+
+		return $data;
 	}
 }

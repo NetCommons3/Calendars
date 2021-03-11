@@ -51,11 +51,11 @@ class CalendarCommonHelper extends AppHelper {
  *
  * イベント情報から擬似予定を生成
  *
- * @param array &$vars カレンダー情報
+ * @param array $vars カレンダー情報
  * @param array $event イベント情報
  * @return array 擬似的な予定情報($plan)を生成して返す。
  */
-	public function makePseudoPlanFromEvent(&$vars, $event) {
+	public function makePseudoPlanFromEvent($vars, $event) {
 		$plan = $event;
 		$shareUsers = [];
 		foreach ($plan['CalendarEventShareUser'] as $item) {
@@ -75,13 +75,13 @@ class CalendarCommonHelper extends AppHelper {
  *
  * 予定マーククラス名または予定(日跨ぎライン)マーククラス名の取得
  *
- * @param array &$vars カレンダー情報
+ * @param array $vars カレンダー情報
  * @param array $plan 予定情報. 指定する予定がない場合nullにする。その場合、第３引数がroomIdとして利用される。
  * @param int $roomId roomId
  * @param string $prefix prefix
  * @return string ClassName
  */
-	public function getPlanMarkClassName(&$vars, $plan = null, $roomId = null,
+	public function getPlanMarkClassName($vars, $plan = null, $roomId = null,
 		$prefix = 'calendar-plan-mark-') {
 		if ($plan !== null) {
 			$roomId = $plan['CalendarEvent']['room_id'];
@@ -221,14 +221,14 @@ class CalendarCommonHelper extends AppHelper {
  *
  * 予定概要群生成の準備
  *
- * @param array &$vars カレンダー情報
- * @param object &$nctm NetCommonsTimeオブジェクトへの参照
+ * @param array $vars カレンダー情報
+ * @param NetCommonsTime $nctm NetCommonsTimeオブジェクトへの参照
  * @param int $year 年
  * @param int $month 月
  * @param int $day 日
  * @return mixed 指定日の開始時間、終了時間および指定日で表示すべき予定群の配列
  */
-	public function preparePlanSummaries(&$vars, &$nctm, $year, $month, $day) {
+	public function preparePlanSummaries($vars, $nctm, $year, $month, $day) {
 		$beginOfDay = CalendarTime::dt2CalDt($nctm->toServerDatetime(
 			sprintf("%04d-%02d-%02d 00:00:00", $year, $month, $day)));
 		list($yearOfNextDay, $monthOfNextDay, $nextDay) = CalendarTime::getNextDay($year, $month, $day);
@@ -256,18 +256,18 @@ class CalendarCommonHelper extends AppHelper {
  *
  * 予定の終了日時が、この日に含まれる時、予定を返す。
  *
- * @param array &$vars カレンダー情報
+ * @param array $vars カレンダー情報
  * @param array $plan 予定データ
  * @param string $beginOfDay この日のはじまり(日付時刻/YmdHis(YYYYMMDDhhmmss)形式)
  * @param string $endOfDay この日のおわり(日付時刻/YmdHis(YYYYMMDDhhmmss)形式)
  * @param string $fromTimeOfDay この予定の開始時刻(HH:MM形式)
  * @param string $toTimeOfDay この予定の終了時刻(HH:MM形式)
- * @param object &$nctm NetCommonsTimeオブジェクトへの参照
+ * @param NetCommonsTime $nctm NetCommonsTimeオブジェクトへの参照
  * @param array &$planOfThisDay この日の表示対象の予定候補.条件に一致したら値をセットして返す。
  * @return  void
  */
-	protected function _includeToTimeOfDay(&$vars, $plan, $beginOfDay, $endOfDay, $fromTimeOfDay,
-		$toTimeOfDay, &$nctm, &$planOfThisDay) {
+	protected function _includeToTimeOfDay($vars, $plan, $beginOfDay, $endOfDay, $fromTimeOfDay,
+		$toTimeOfDay, $nctm, &$planOfThisDay) {
 		if (($planOfThisDay === false) && $beginOfDay < $plan['CalendarEvent']['dtend'] &&
 			$plan['CalendarEvent']['dtend'] < $endOfDay) {
 			//予定の終了日時が、この日に含まれる時
@@ -285,17 +285,17 @@ class CalendarCommonHelper extends AppHelper {
  *
  * この日に該当する予定ならばそれを返す
  *
- * @param array &$vars カレンダー情報
+ * @param array $vars カレンダー情報
  * @param array $plan 予定データ
  * @param string $beginOfDay この日のはじまり(日付時刻/YmdHis(YYYYMMDDhhmmss)形式)
  * @param string $endOfDay この日のおわり(日付時刻/YmdHis(YYYYMMDDhhmmss)形式)
  * @param string $fromTimeOfDay この予定の開始時刻(HH:MM形式)
  * @param string $toTimeOfDay この予定の終了時刻(HH:MM形式)
- * @param object &$nctm NetCommonsTimeオブジェクトへの参照
+ * @param NetCommonsTime $nctm NetCommonsTimeオブジェクトへの参照
  * @return mixed 該当するなら、拡張予定データを返す。該当しないならfalseを返す。
  */
-	protected function _getPlanIfMatchThisDay(&$vars, $plan, $beginOfDay, $endOfDay,
-		$fromTimeOfDay, $toTimeOfDay, &$nctm) {
+	protected function _getPlanIfMatchThisDay($vars, $plan, $beginOfDay, $endOfDay,
+		$fromTimeOfDay, $toTimeOfDay, $nctm) {
 		//begin-end, dtstart-dtendともに、[begin, end）、[dtstart, dtend）つまり、以上-未満、であることに注意すること。
 		//
 		$planOfThisDay = false;	//「この日の予定ではない」が初期値
@@ -348,11 +348,11 @@ class CalendarCommonHelper extends AppHelper {
  *
  * この日に該当する予定ならばそれを返す
  *
- * @param array &$vars カレンダー情報
+ * @param array $vars カレンダー情報
  * @param array $plan 予定データ
  * @return bool 表示してよい時、true.表示してはいけない時false
  */
-	public function canDisplayThisPlan(&$vars, $plan) {
+	public function canDisplayThisPlan($vars, $plan) {
 		//FIXME: この関数は簡易版。正確にはcanRead, canEdit, canDeleteなどを利用・参考にしながら追加実装すること。
 		//
 		//Calendars/Model/Behavior/CalendarSearchPlanBehavior.phpのgetPlans()の中で、
