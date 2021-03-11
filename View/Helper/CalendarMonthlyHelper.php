@@ -674,10 +674,10 @@ class CalendarMonthlyHelper extends AppHelper {
  *
  * @param int $roomId roomId
  * @param array $vars vars
- * @param array &$plan plan
+ * @param array $plan plan
  * @return bool 対象となる場合true。そうでない場合false。
  */
-	protected function _isTargetPlan($roomId, $vars, &$plan) {
+	protected function _isTargetPlan($roomId, $vars, $plan) {
 		if ($roomId != -1) {	// roomId == -1はMonthly, roomId != -1はWeeklyを想定
 
 			//Monthlyの時は、roomId == currentRoomId == emptyの時のみ
