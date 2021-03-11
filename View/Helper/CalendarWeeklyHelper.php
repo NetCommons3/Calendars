@@ -122,10 +122,10 @@ class CalendarWeeklyHelper extends CalendarMonthlyHelper {
  *
  * (週表示)ヘッダ部分html生成
  *
- * @param array &$vars コントローラーからの情報
- * @return string HTML
+ * @param array $vars コントローラーからの情報
+ * @return array HTMLと$varsを返す
  */
-	public function makeWeeklyHeaderHtml(&$vars) {
+	public function makeWeeklyHeaderHtml($vars) {
 		if ($vars['week'] == 0) {
 			//日付から第n週を求めて設定
 			$nWeek = ceil(($vars['mInfo']['wdayOf1stDay'] + $vars['day']) / 7);
@@ -188,7 +188,7 @@ class CalendarWeeklyHelper extends CalendarMonthlyHelper {
 			$html .= '</td>';
 		}
 		$html .= '</tr>';
-		return $html;
+		return [$html, $vars];
 	}
 /**
  * makeWeeklyBodyHtml

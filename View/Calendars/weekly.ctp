@@ -24,7 +24,8 @@ echo $this->element('Calendars.scripts');
 				<tbody>
 					<?php /* -- 日付（見出し） -- */ ?>
 						<?php
-							echo $this->CalendarWeekly->makeWeeklyHeaderHtml($vars);
+							list($html, $vars) = $this->CalendarWeekly->makeWeeklyHeaderHtml($vars);
+							echo $html;
 						?>
 						<?php /*-- 予定の内容 --*/ ?>
 						<?php echo $this->CalendarWeekly->makeWeeklyBodyHtml($vars); ?>
