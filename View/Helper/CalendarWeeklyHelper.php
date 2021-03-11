@@ -122,7 +122,7 @@ class CalendarWeeklyHelper extends CalendarMonthlyHelper {
  *
  * (週表示)ヘッダ部分html生成
  *
- * @param array &$vars コントローラーからの情報
+ * @param array $vars コントローラーからの情報
  * @return array HTMLと$varsを返す
  */
 	public function makeWeeklyHeaderHtml($vars) {
