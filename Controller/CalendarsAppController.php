@@ -69,18 +69,20 @@ class CalendarsAppController extends AppController {
 		}
 		return false;
 	}
+
 /**
  * _setCalendarCommonCurrent
  *
  * カレンダー設定情報設定
  *
- * @param array &$vars カレンダー共通情報
+ * @param array $vars カレンダー共通情報
  * @return void
  */
-	protected function _setCalendarCommonCurrent(&$vars) {
+	protected function _setCalendarCommonCurrent($vars) {
 		$vars['frame_key'] = Current::read('Frame.key');
 		$data = $this->CalendarFrameSetting->getFrameSetting();
 		Current::$current['CalendarFrameSetting'] = $data['CalendarFrameSetting'];
+		return $vars;
 	}
 
 /**
@@ -88,11 +90,11 @@ class CalendarsAppController extends AppController {
  *
  * 日付時刻変数設定
  *
- * @param array &$vars カレンダー用共通変数
- * @param object &$nctm NetCommonsTimeオブジェクト
- * @return void
+ * @param array $vars カレンダー用共通変数
+ * @param \NetCommonsTime $nctm NetCommonsTimeオブジェクト
+ * @return array カレンダー用共通変数
  */
-	protected function _setDateTimeVars(&$vars, &$nctm) {
+	protected function _setDateTimeVars($vars, $nctm) {
 		//現在のユーザTZ「考慮済」年月日時分秒を取得
 		$userNowYmdHis = $nctm->toUserDatetime('now');
 		$userNowArray = CalendarTime::transFromYmdHisToArray($userNowYmdHis);
@@ -144,6 +146,8 @@ class CalendarsAppController extends AppController {
 		$date->setDate($userNowArray['year'], $userNowArray['month'], $userNowArray['day']);
 		$date->setTime($userNowArray['hour'], $userNowArray['min'], $userNowArray['sec']);
 		$vars['dayOfTheWeek'] = $date->format('w');
+
+		return $vars;
 	}
 
 /**
@@ -151,17 +155,17 @@ class CalendarsAppController extends AppController {
  *
  * カレンダー用共通変数設定
  *
- * @param array &$vars カレンダー用共通変数
- * @return void
+ * @param array $vars カレンダー用共通変数
+ * @return array
  */
-	protected function _setCalendarCommonVars(&$vars) {
-		$this->_setCalendarCommonCurrent($vars);
+	protected function _setCalendarCommonVars($vars) {
+		$vars = $this->_setCalendarCommonCurrent($vars);
 		$vars['CalendarFrameSetting'] = Current::read('CalendarFrameSetting');
 
 		$nctm = new NetCommonsTime();
 
 		//日付時刻変数を設定する
-		$this->_setDateTimeVars($vars, $nctm);
+		$vars = $this->_setDateTimeVars($vars, $nctm);
 
 		//戻り先変数を設定する
 		//$this->setReturnVars($vars); ※未使用
@@ -233,14 +237,15 @@ class CalendarsAppController extends AppController {
 		);
 
 		//room_idとspace_idの対応表を載せておく。
-		$this->__setRoomInfos($vars);
+		$vars = $this->__setRoomInfos($vars);
 
 		//公開対象一覧のoptions配列と自分自身のroom_idとルーム毎空間名配列を取得
-		$this->__setExposeRoomOptionsEtc($vars);
+		$vars = $this->__setExposeRoomOptionsEtc($vars);
 
 		$vars['plans'] = $this->CalendarEvent->getPlans($vars, $planParams, $order);
 
 		//CakeLog::debug("DBGDBG: vars_plans[" . print_r($vars['plans'], true) . "]");
+		return $vars;
 	}
 
 /**
@@ -248,10 +253,10 @@ class CalendarsAppController extends AppController {
  *
  * ルーム関連変数の取得とセット
  *
- * @param array &$vars カレンダー用共通変数
- * @return void
+ * @param array $vars カレンダー用共通変数
+ * @return array
  */
-	private function __setRoomInfos(&$vars) {
+	private function __setRoomInfos($vars) {
 		//room_idとspace_idの対応表を載せておく。
 		$rooms = $this->Room->find('all', array(
 			'recursive' => -1,
@@ -274,6 +279,7 @@ class CalendarsAppController extends AppController {
 			'recursive' => -1,
 		));
 		$vars['roomsLanguages'] = $roomsLanguages;
+		return $vars;
 	}
 
 /**
@@ -281,10 +287,10 @@ class CalendarsAppController extends AppController {
  *
  * 公開対象一覧のoptions配列と自分自身のroom_idとルーム毎空間名配列を取得
  *
- * @param array &$vars カレンダー用共通変数
- * @return void
+ * @param array $vars カレンダー用共通変数
+ * @return array
  */
-	private function __setExposeRoomOptionsEtc(&$vars) {
+	private function __setExposeRoomOptionsEtc($vars) {
 		//表示方法設定情報を取り出し、
 		//公開対象一覧のoptions配列と自分自身のroom_idとルーム毎空間名配列を取得。
 		//spaceNameOfRoomsは、ViewのCalendarCommon->getPlanMarkClassName()の中で
@@ -298,6 +304,7 @@ class CalendarsAppController extends AppController {
 		$vars['myself'] = $myself;
 		$vars['spaceNameOfRooms'] = $spaceNameOfRooms;
 		$vars['allRoomNames'] = $allRoomNames;
+		return $vars;
 	}
 
 /**
@@ -305,10 +312,10 @@ class CalendarsAppController extends AppController {
  *
  * リダイレクトURLの保存
  *
- * @param array &$vars カレンダー用共通変数
- * @return void
+ * @param array $vars カレンダー用共通変数
+ * @return array
  */
-	protected function _storeRedirectPath(&$vars) {
+	protected function _storeRedirectPath($vars) {
 		// 戻り先を保存する必要があるのは
 		// カレンダーコントローラーだけです
 		if ($this->name != 'Calendars') {
@@ -327,6 +334,7 @@ class CalendarsAppController extends AppController {
 		$this->Session->write(CakeSession::read('Config.userAgent') . 'calendars.' . $frameId,
 			$currentPath);
 		$vars['returnUrl'] = $currentPath;
+		return $vars;
 	}
 
 }

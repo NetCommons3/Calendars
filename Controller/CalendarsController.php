@@ -85,7 +85,7 @@ class CalendarsController extends CalendarsAppController {
 		$style = $this->_getQueryParam('style');
 		if (! $style) {
 			//style未指定の場合、CalendarFrameSettingモデルのdisplay_type情報から表示するctpを決める。
-			$this->_setCalendarCommonCurrent($vars);
+			$vars = $this->_setCalendarCommonCurrent($vars);
 			$displayType = Current::read('CalendarFrameSetting.display_type');
 			if ($displayType == CalendarsComponent::CALENDAR_DISP_TYPE_SMALL_MONTHLY) {
 				$style = 'smallmonthly';
@@ -105,12 +105,12 @@ class CalendarsController extends CalendarsAppController {
 				$style = 'smallmonthly';
 			}
 		}
-		$this->_storeRedirectPath($vars);
+		$vars = $this->_storeRedirectPath($vars);
 
 		$roomPermRoles = $this->CalendarEvent->prepareCalRoleAndPerm();
 		CalendarPermissiveRooms::setRoomPermRoles($roomPermRoles);
 
-		$ctpName = $this->_getCtpAndVars($style, $vars);
+		list($ctpName, $vars) = $this->_getCtpAndVars($style, $vars);
 
 		$frameId = Current::read('Frame.id');
 		$languageId = Current::read('Language.id');
@@ -127,7 +127,7 @@ class CalendarsController extends CalendarsAppController {
  * @return array $vars 月（縮小用）データ
  */
 	protected function _getMonthlyVars($vars) {
-		$this->_setCalendarCommonVars($vars);
+		$vars = $this->_setCalendarCommonVars($vars);
 		$vars['selectRooms'] = array();	//マージ前の暫定
 		return $vars;
 	}
@@ -141,7 +141,7 @@ class CalendarsController extends CalendarsAppController {
  * @return array $vars 週単位データ
  */
 	protected function _getWeeklyVars($vars) {
-		$this->_setCalendarCommonVars($vars);
+		$vars = $this->_setCalendarCommonVars($vars);
 		$vars['selectRooms'] = array();	//マージ前の暫定
 
 		$week = $this->_getQueryParam('week');
@@ -164,7 +164,7 @@ class CalendarsController extends CalendarsAppController {
  * @return array $vars 日単位（一覧）データ
  */
 	protected function _getDailyListVars($vars) {
-		$this->_setCalendarCommonVars($vars);
+		$vars = $this->_setCalendarCommonVars($vars);
 		$vars['tab'] = 'list';
 		return $vars;
 	}
@@ -178,7 +178,7 @@ class CalendarsController extends CalendarsAppController {
  * @return array $vars 日単位（タイムライン）データ
  */
 	protected function _getDailyTimelineVars($vars) {
-		$this->_setCalendarCommonVars($vars);
+		$vars = $this->_setCalendarCommonVars($vars);
 		$vars['tab'] = 'timeline';
 		return $vars;
 	}
@@ -193,7 +193,7 @@ class CalendarsController extends CalendarsAppController {
  */
 	protected function _getMemberScheduleVars($vars) {
 		$vars['sort'] = 'member';
-		$this->_setCalendarCommonVars($vars);
+		$vars = $this->_setCalendarCommonVars($vars);
 
 		$vars['selectRooms'] = array();	//マージ前の暫定
 
@@ -228,7 +228,7 @@ class CalendarsController extends CalendarsAppController {
  */
 	protected function _getTimeScheduleVars($vars) {
 		$vars['sort'] = 'time';
-		$this->_setCalendarCommonVars($vars);
+		$vars = $this->_setCalendarCommonVars($vars);
 
 		$vars['selectRooms'] = array();	//マージ前の暫定
 
@@ -304,10 +304,10 @@ class CalendarsController extends CalendarsAppController {
  * ctpおよびvars取得
  *
  * @param string $style スタイル
- * @param array &$vars カレンダー共通変数
- * @return string ctpNameを格納したstring
+ * @param array $vars カレンダー共通変数
+ * @return array ctpNameを格納したstringとカレンダー共通変数
  */
-	protected function _getCtpAndVars($style, &$vars) {
+	protected function _getCtpAndVars($style, $vars) {
 		$ctpName = '';
 		switch ($style) {
 			case 'smallmonthly':
@@ -342,6 +342,6 @@ class CalendarsController extends CalendarsAppController {
 				$vars['style'] = 'smallmonthly';
 		}
 
-		return $ctpName;
+		return [$ctpName, $vars];
 	}
 }

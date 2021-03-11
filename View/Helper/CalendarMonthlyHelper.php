@@ -13,6 +13,15 @@ App::uses('WorkflowComponent', 'Workflow.Controller/Component');
 /**
  * Calendar monthy Helper
  *
+ * @property \NetCommonsFormHelper $NetCommonsForm
+ * @property \NetCommonsHtmlHelper $NetCommonsHtml
+ * @property \FormHelper $Form
+ * @property \CalendarCommonHelper $CalendarCommon
+ * @property \CalendarButtonHelper $CalendarButton
+ * @property \CalendarUrlHelper $CalendarUrl
+ * @property \CalendarPlanHelper $CalendarPlan
+ * @property \TitleIconHelper $TitleIcon
+ *
  * @author Allcreator Co., Ltd. <info@allcreator.net>
  * @package NetCommons\Calendars\View\Helper
  * @SuppressWarnings(PHPMD)
@@ -64,7 +73,7 @@ class CalendarMonthlyHelper extends AppHelper {
 	protected $_linePlanCnt = 0; //この週の連続プランの数
 /**
  * line plan proceess data
- * 
+ *
  * @var array
  */
 	protected $_lineProcess = false; //処理中の予定
@@ -84,14 +93,14 @@ class CalendarMonthlyHelper extends AppHelper {
  *
  * 予定概要群html生成
  *
- * @param array &$vars カレンダー情報
- * @param object &$nctm NetCommonsTimeオブジェクトへの参照
+ * @param array $vars カレンダー情報
+ * @param NetCommonsTime $nctm NetCommonsTimeオブジェクトへの参照
  * @param int $year 年
  * @param int $month 月
  * @param int $day 日
  * @return string HTML
  */
-	protected function _makePlanSummariesHtml(&$vars, &$nctm, $year, $month, $day) {
+	protected function _makePlanSummariesHtml($vars, $nctm, $year, $month, $day) {
 		//指定日の開始時間、終了時間および指定日で表示すべき予定群の配列を取得
 		list ($fromTimeOfDay, $toTimeOfDay, $plansOfDay) =
 			$this->CalendarCommon->preparePlanSummaries($vars, $nctm, $year, $month, $day);
@@ -160,7 +169,7 @@ class CalendarMonthlyHelper extends AppHelper {
  *
  * 予定概要群(日跨ぎLine)html取得
  *
- * @param array &$vars カレンダー情報
+ * @param array $vars カレンダー情報
  * @param int $year 年
  * @param int $month 月
  * @param int $day 日
@@ -170,7 +179,7 @@ class CalendarMonthlyHelper extends AppHelper {
  * @param int $roomId ルームIDによる絞り込み（週表示用）
  * @return string HTML
  */
-	public function getPlanSummariesLineHtml(&$vars, $year, $month, $day, $fromTime, $toTime,
+	public function getPlanSummariesLineHtml($vars, $year, $month, $day, $fromTime, $toTime,
 		$plans, $roomId = -1) {
 		$html = '';
 		$nctm = new NetCommonsTime();
@@ -219,7 +228,7 @@ class CalendarMonthlyHelper extends AppHelper {
  *
  * 予定概要群html取得
  *
- * @param array &$vars カレンダー情報
+ * @param array $vars カレンダー情報
  * @param int $year 年
  * @param int $month 月
  * @param int $day 日
@@ -228,7 +237,7 @@ class CalendarMonthlyHelper extends AppHelper {
  * @param array $plans この日の予定群
  * @return string HTML
  */
-	public function getPlanSummariesHtml(&$vars, $year, $month, $day, $fromTime, $toTime, $plans) {
+	public function getPlanSummariesHtml($vars, $year, $month, $day, $fromTime, $toTime, $plans) {
 		$html = '';
 		//$nctm = new NetCommonsTime();
 
@@ -318,14 +327,14 @@ class CalendarMonthlyHelper extends AppHelper {
  *
  * 予定群html生成
  *
- * @param array &$vars カレンダー情報
- * @param object &$nctm NetCommonsTimeオブジェクトへの参照
+ * @param array $vars カレンダー情報
+ * @param object $nctm NetCommonsTimeオブジェクトへの参照
  * @param int $year 年
  * @param int $month 月
  * @param int $day 日
  * @return string HTML
  */
-	public function makePlansHtml(&$vars, &$nctm, $year, $month, $day) {
+	public function makePlansHtml($vars, $nctm, $year, $month, $day) {
 		//list ($fromTimeOfDay, $toTimeOfDay, $plansOfDay) = $this->CalendarCommon->preparePlanSummaries($vars, $nctm, $year, $month, $day);
 		$plansOfDay = $this->CalendarCommon->preparePlanSummaries($vars, $nctm, $year, $month, $day);
 		$planNum = count($plansOfDay[2]);
@@ -345,7 +354,7 @@ class CalendarMonthlyHelper extends AppHelper {
  * @param int $cnt 月カレンダー開始日からの累積日数(0オリジン)
  * @param array $vars カレンダー情報
  * @param int &$week 週数 (0オリジン)
- * @return string HTML 
+ * @return string HTML
  */
 	protected function _makeStartTr($cnt, $vars, &$week) {
 		$html = '';
@@ -491,9 +500,9 @@ class CalendarMonthlyHelper extends AppHelper {
  *
  * 初週前月部または最終週次月部の生成
  *
- * @param object &$nctm  NetCommonsTimeオブジェクトの参照
+ * @param NetCommonsTime $nctm  NetCommonsTimeオブジェクトの参照
  * @param array $type  'prev' or 'next'
- * @param array &$vars  カレンダー情報
+ * @param array $vars  カレンダー情報
  * @param string &$html  html
  * @param int &$cnt  cnt
  * @param int &$week  week
@@ -502,7 +511,7 @@ class CalendarMonthlyHelper extends AppHelper {
  * @param string &$holidayTitle  holidayTitle
  * @return void
  */
-	protected function _doPrevNextMonthPart(&$nctm, $type, &$vars, &$html, &$cnt, &$week, &$idx,
+	protected function _doPrevNextMonthPart($nctm, $type, $vars, &$html, &$cnt, &$week, &$idx,
 		&$day, &$holidayTitle) {
 		if ($type === 'prev') {
 			$year = $vars['mInfo']['yearOfPrevMonth'];
@@ -663,12 +672,12 @@ class CalendarMonthlyHelper extends AppHelper {
  *
  * 対象となる予定かどうかの判断
  *
- * @param int &$roomId roomId
- * @param array &$vars vars
+ * @param int $roomId roomId
+ * @param array $vars vars
  * @param array &$plan plan
  * @return bool 対象となる場合true。そうでない場合false。
  */
-	protected function _isTargetPlan(&$roomId, &$vars, &$plan) {
+	protected function _isTargetPlan($roomId, $vars, &$plan) {
 		if ($roomId != -1) {	// roomId == -1はMonthly, roomId != -1はWeeklyを想定
 
 			//Monthlyの時は、roomId == currentRoomId == emptyの時のみ

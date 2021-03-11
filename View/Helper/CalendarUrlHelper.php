@@ -73,10 +73,10 @@ class CalendarUrlHelper extends AppHelper {
  * @param int $year 年
  * @param int $month 月
  * @param int $day 日
- * @param array &$vars カレンダー情報
+ * @param array $vars カレンダー情報
  * @return string Url
  */
-	public function makeEditUrl($year, $month, $day, &$vars) {
+	public function makeEditUrl($year, $month, $day, $vars) {
 		$options = array(
 			'plugin' => 'calendars',
 			'controller' => 'calendar_plans',
@@ -100,10 +100,10 @@ class CalendarUrlHelper extends AppHelper {
  * @param int $month 月
  * @param int $day 日
  * @param int $hour 時
- * @param array &$vars カレンダー情報
+ * @param array $vars カレンダー情報
  * @return string Url
  */
-	public function makeEditUrlWithTime($year, $month, $day, $hour, &$vars) {
+	public function makeEditUrlWithTime($year, $month, $day, $hour, $vars) {
 		$options = array(
 			'plugin' => 'calendars',
 			'controller' => 'calendar_plans',

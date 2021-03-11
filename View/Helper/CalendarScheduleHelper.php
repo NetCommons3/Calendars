@@ -8,8 +8,19 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 App::uses('AppHelper', 'View/Helper');
+
 /**
  * Calendar schedule Helper
+ *
+ * @property \NetCommonsFormHelper $NetCommonsForm
+ * @property \NetCommonsHtmlHelper $NetCommonsHtml
+ * @property \FormHelper $Form
+ * @property \CalendarUrlHelper $CalendarUrl
+ * @property \CalendarCommonHelper $CalendarCommon
+ * @property \CalendarButtonHelper $CalendarButton
+ * @property \CalendarDailyHelper $CalendarDaily
+ * @property \DisplayUserHelper $DisplayUser
+ * @property \TitleIconHelper $TitleIcon
  *
  * @author Allcreator Co., Ltd. <info@allcreator.net>
  * @package NetCommons\Calendars\View\Helper
@@ -39,8 +50,8 @@ class CalendarScheduleHelper extends CalendarMonthlyHelper {
  *
  * 予定概要群html生成
  *
- * @param array &$vars カレンダー情報
- * @param object &$nctm NetCommonsTimeオブジェクトへの参照
+ * @param array $vars カレンダー情報
+ * @param NetCommonsTime $nctm NetCommonsTimeオブジェクトへの参照
  * @param int $year 年
  * @param int $month 月
  * @param int $day 日
@@ -48,7 +59,7 @@ class CalendarScheduleHelper extends CalendarMonthlyHelper {
  * @param int &$cnt (ｎ日のPlan数）
  * @return string HTML
  */
-	protected function _makeSchedulePlanSummariesHtml(&$vars, &$nctm, $year, $month, $day,
+	protected function _makeSchedulePlanSummariesHtml($vars, $nctm, $year, $month, $day,
 		$idx, &$cnt) {
 		//指定日の開始時間、終了時間および指定日で表示すべき予定群の配列を取得
 		list ($fromTimeOfDay, $toTimeOfDay, $plansOfDay) =
@@ -62,7 +73,7 @@ class CalendarScheduleHelper extends CalendarMonthlyHelper {
  *
  * 予定概要群html取得(メンバー順)
  *
- * @param array &$vars カレンダー情報
+ * @param array $vars カレンダー情報
  * @param int $year 年
  * @param int $month 月
  * @param int $day 日
@@ -73,7 +84,7 @@ class CalendarScheduleHelper extends CalendarMonthlyHelper {
  * @param int &$cnt (ｎ日のPlan数）
  * @return string HTML
  */
-	public function getPlanSummariesMemberHtml(&$vars, $year, $month, $day, $fromTime, $toTime,
+	public function getPlanSummariesMemberHtml($vars, $year, $month, $day, $fromTime, $toTime,
 		$plans, $idx, &$cnt) {
 		$cnt = 0;
 		$prevUser = '';
@@ -159,7 +170,7 @@ class CalendarScheduleHelper extends CalendarMonthlyHelper {
  *
  * 予定概要群html取得(時間順)
  *
- * @param array &$vars カレンダー情報
+ * @param array $vars カレンダー情報
  * @param int $year 年
  * @param int $month 月
  * @param int $day 日
@@ -170,7 +181,7 @@ class CalendarScheduleHelper extends CalendarMonthlyHelper {
  * @param int &$cnt (ｎ日のPlan数）
  * @return string HTML
  */
-	public function getPlanSummariesTimeHtml(&$vars, $year, $month, $day, $fromTime, $toTime,
+	public function getPlanSummariesTimeHtml($vars, $year, $month, $day, $fromTime, $toTime,
 		$plans, $idx, &$cnt) {
 		$html = '';
 		$htmlPlan = '';
@@ -262,7 +273,7 @@ class CalendarScheduleHelper extends CalendarMonthlyHelper {
  *
  * 予定概要群html取得
  *
- * @param array &$vars カレンダー情報
+ * @param array $vars カレンダー情報
  * @param int $year 年
  * @param int $month 月
  * @param int $day 日
@@ -273,7 +284,7 @@ class CalendarScheduleHelper extends CalendarMonthlyHelper {
  * @param int &$cnt (ｎ日のPlan数）
  * @return string HTML
  */
-	public function getPlanSummariesHtml2(&$vars, $year, $month, $day, $fromTime, $toTime, $plans,
+	public function getPlanSummariesHtml2($vars, $year, $month, $day, $fromTime, $toTime, $plans,
 		$idx, &$cnt) {
 		$html = '';
 		$cnt = 0;

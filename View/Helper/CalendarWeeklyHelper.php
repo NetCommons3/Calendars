@@ -40,7 +40,7 @@ class CalendarWeeklyHelper extends CalendarMonthlyHelper {
  *
  * 予定概要群html取得
  *
- * @param array &$vars カレンダー情報
+ * @param array $vars カレンダー情報
  * @param int $year 年
  * @param int $month 月
  * @param int $day 日
@@ -49,7 +49,7 @@ class CalendarWeeklyHelper extends CalendarMonthlyHelper {
  * @param array $plans この日の予定群
  * @return string HTML
  */
-	public function getPlanSummariesHtml(&$vars, $year, $month, $day, $fromTime, $toTime, $plans) {
+	public function getPlanSummariesHtml($vars, $year, $month, $day, $fromTime, $toTime, $plans) {
 		$html = '';
 
 		if ($this->_lineProcess == true) {
@@ -96,7 +96,7 @@ class CalendarWeeklyHelper extends CalendarMonthlyHelper {
  *
  * 予定（タイトル）html取得
  *
- * @param array &$vars カレンダー情報
+ * @param array $vars カレンダー情報
  * @param int $year 年
  * @param int $month 月
  * @param int $day 日
@@ -105,7 +105,7 @@ class CalendarWeeklyHelper extends CalendarMonthlyHelper {
  * @param array $plan 予定
  * @return string HTML
  */
-	public function getPlanTitleHtml(&$vars, $year, $month, $day, $fromTime, $toTime, $plan) {
+	public function getPlanTitleHtml($vars, $year, $month, $day, $fromTime, $toTime, $plan) {
 		$html = '';
 		// 大枠
 		$html .= '<div class="row">';
