@@ -93,6 +93,7 @@ class CalendarsAppController extends AppController {
  * @param array $vars カレンダー用共通変数
  * @param \NetCommonsTime $nctm NetCommonsTimeオブジェクト
  * @return array カレンダー用共通変数
+ * @throws BadRequestException
  */
 	protected function _setDateTimeVars($vars, $nctm) {
 		//現在のユーザTZ「考慮済」年月日時分秒を取得
@@ -131,11 +132,9 @@ class CalendarsAppController extends AppController {
 			}
 		}
 
-		//日付チェックを行い、不正なら現在の日付をセットする
+		//日付チェックを行い、不正なら
 		if (! checkdate($vars['month'], $vars['day'], $vars['year'])) {
-			$vars['year'] = (int)$userNowArray['year'];
-			$vars['month'] = (int)$userNowArray['month'];
-			$vars['day'] = (int)$userNowArray['day'];
+			throw new BadRequestException(__d('net_commons', 'Bad Request'));
 		}
 
 		$specDate = new DateTime(sprintf('%d-%d-%d', $vars['year'], $vars['month'], $vars['day']));
