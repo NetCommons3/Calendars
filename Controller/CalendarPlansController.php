@@ -19,6 +19,21 @@ App::uses('CalendarPermissiveRooms', 'Calendars.Utility');
 /**
  * CalendarPlansController
  *
+ * @property \CalendarRrule $CalendarRrule
+ * @property \CalendarEvent $CalendarEvent
+ * @property \CalendarFrameSetting $CalendarFrameSetting
+ * @property \CalendarEventShareUser $CalendarEventShareUser
+ * @property \CalendarFrameSettingSelectRoom $CalendarFrameSettingSelectRoom
+ * @property \CalendarSetting $CalendarSetting
+ * @property \CalendarWorkflow $CalendarWorkflow
+ * @property \Holiday $Holiday
+ * @property \Room $Room
+ * @property \CalendarActionPlan $CalendarActionPlan
+ * @property \CalendarDeleteActionPlan $CalendarDeleteActionPlan
+ * @property \RoomsLanguage $RoomsLanguage
+ * @property \User $User
+ * @property \MailSetting $MailSetting
+ *
  * @author Allcreator <info@allcreator.net>
  * @package NetCommons\Calendars\Controller
  */
@@ -132,6 +147,15 @@ class CalendarPlansController extends CalendarsAppController {
  * @return void
  */
 	public function beforeFilter() {
+		if (empty($this->request->params['?']['frame_id']) &&
+				!empty($this->request->params['key'])) {
+			//新着情報から来た際、予定(calendar_eventsテーブル)keyからフレームIDを取得して、表示させる
+			$frameId = $this->CalendarFrameSetting->getFrameIdByEventKey($this->request->params['key']);
+			if ($frameId) {
+				$this->request->params['?']['frame_id'] = $frameId;
+			}
+		}
+
 		parent::beforeFilter();
 
 		// 以前はここでCurrentのブロックIDをチェックする処理があったが
