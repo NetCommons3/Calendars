@@ -28,7 +28,7 @@
 			<div class="clearfix"></div>
 		</div>
 	</td>
-	<!-- timeline-slit -->
+	<?php //<!-- timeline-slit --> ?>
 	<td class="calendar-daily-timeline-col-slit calendar-tbl-td-pos">
 		<?php if ($needTimeSlit): ?>
 		<div class="calendar-timeline-data-area"><?php /*-- 位置調整用 --*/ ?>

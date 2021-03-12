@@ -45,7 +45,7 @@
 		</div>
 		<div class="clearfix"></div>
 	</div>
-</div><!-- form-groupおわり-->
+</div><?php //<!-- form-groupおわり--> ?>
 
 <?php
 	/* ルーム選択 */

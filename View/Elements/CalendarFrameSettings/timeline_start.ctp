@@ -28,5 +28,5 @@
 		'class' => 'form-control',
 		));
 		?>
-	</div><!-- col-xs-10おわり -->
-</div><!-- form-groupおわり-->
+	</div><?php //<!-- col-xs-10おわり --> ?>
+</div><?php //<!-- form-groupおわり-->

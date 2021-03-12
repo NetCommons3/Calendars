@@ -18,7 +18,7 @@ echo $this->element('Calendars.scripts');
 
 	<?php echo $this->CalendarTurnCalendar->getTurnCalendarOperationsWrap('week', 'top', $vars); ?>
 
-	<div class="row"><!--全体枠-->
+	<div class="row"><?php //<!--全体枠--> ?>
 		<div class="col-xs-12 col-sm-12 text-center table-responsive">
 			<table class='calendar-weekly-table'>
 				<tbody>
@@ -35,7 +35,7 @@ echo $this->element('Calendars.scripts');
 			<div ng-controller="CalendarsMonthlyLinePlan" ng-style="initialize(<?php echo h(json_encode(array('calendarLinePlans' => $calendarLinePlans))) ?>)" resize>
 			</div>
 		</div>
-	</div><!--全体枠END-->
+	</div><?php //<!--全体枠END--> ?>
 
 	<?php /*-- 予定の内容 --*/ ?>
 	<?php

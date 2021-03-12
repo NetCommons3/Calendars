@@ -93,7 +93,7 @@ $jsParameters = array(
 				<div class='col-xs-12'>
 					<?php echo $this->element('Calendars.CalendarPlans/edit_title'); ?>
 				</div>
-			</div><!-- end form-group-->
+			</div><?php //<!-- end form-group--> ?>
 
 			<?php /* 期日指定ラベル＋期間・時間指定のチェックボックス */ ?>
 			<div class="form-group" data-calendar-name="checkTime">
@@ -116,19 +116,19 @@ $jsParameters = array(
 						));
 					?>
 				</div>
- 			</div><!-- end form-group-->
+ 			</div><?php //<!-- end form-group--> ?>
 
 			<?php /* 期日入力（終日／開始、終了）*/ ?>
 			<div class='form-group' data-calendar-name='inputStartEndDateTime'>
 				<?php echo $this->element('Calendars.CalendarPlans/detail_edit_datetime', array('useTime' => $useTime)); ?>
-			</div><!-- form-group name="inputStartEndDateTime"おわり -->
+			</div><?php //<!-- form-group name="inputStartEndDateTime"おわり --> ?>
 
 			<?php /* 繰り返し設定 （この予定のみ変更のときは出さない）*/ ?>
 			<div class="form-group" data-calendar-name="inputRruleInfo" ng-hide="editRrule==0">
 				<div class="col-xs-12">
 					<?php echo $this->element('Calendars.CalendarPlans/detail_edit_repeat_items', array('useTime' => $useTime)); ?>
 				</div>
-			</div><!-- end form-group-->
+			</div><?php //<!-- end form-group--> ?>
 
 			<?php /* 予定の対象空間選択 */ ?>
 			<div class="form-group" data-calendar-name="selectRoomForOpen">
@@ -138,15 +138,15 @@ $jsParameters = array(
 					?>
 					<?php echo $this->NetCommonsForm->error('CalendarActionPlan.plan_room_id'); ?>
 				</div>
-			</div><!-- end form-group-->
+			</div><?php //<!-- end form-group--> ?>
 
 			<?php /* 予定の共有設定 */ ?>
 			<div class="form-group calendar-plan-share_<?php echo $frameId; ?> " data-calendar-name="planShare"
                  ng-cloak ng-show="data.canUseGroup == true && data.planRoomId == <?php echo $myself; ?>">
 				<div class="col-xs-12 col-sm-10 col-sm-offset-2">
 					<?php echo $this->element('Calendars.CalendarPlans/edit_plan_share', array('shareUsers', $shareUsers)); ?>
-				</div><!-- col-sm-10おわり -->
-			</div><!-- form-groupおわり-->
+				</div><?php //<!-- col-sm-10おわり --> ?>
+			</div><?php //<!-- form-groupおわり--> ?>
 
 			<?php /* メール通知設定 */ ?>
 			<?php echo $this->element('Calendars.CalendarPlans/detail_edit_mail'); ?>
@@ -165,14 +165,14 @@ $jsParameters = array(
 			<div data-calendar-name="inputCommentArea">
 				<div class="col-xs-12">
 					<?php echo $this->Workflow->inputComment('CalendarEvent.status'); ?>
-				</div><!-- col-xs-12おわり -->
-			</div><!-- inputCommentAreaおわり -->
+				</div><?php //<!-- col-xs-12おわり --> ?>
+			</div><?php //<!-- inputCommentAreaおわり --> ?>
 
-		</div><!-- panel-bodyを閉じる -->
+		</div><?php //<!-- panel-bodyを閉じる --> ?>
 
 		<div class="panel-footer text-center">
 			<?php echo $this->CalendarPlan->makeEditButtonHtml('CalendarActionPlan.status', $vars, $event); ?>
-		</div><!--panel-footerの閉じるタグ-->
+		</div><?php //<!--panel-footerの閉じるタグ--> ?>
 		<?php echo $this->NetCommonsForm->end(); ?>
 
 		<?php if (isset($event['CalendarEvent']) && ($this->request->params['action'] === 'edit' && $this->CalendarWorkflow->canDelete($event))) : ?>
@@ -195,7 +195,7 @@ $jsParameters = array(
 			</div>
 		<?php endif; ?>
 
-	</div><!--end panel-->
+	</div><?php //<!--end panel--> ?>
 
 	<?php /* コメント一覧 */
 		echo $this->Workflow->comments();

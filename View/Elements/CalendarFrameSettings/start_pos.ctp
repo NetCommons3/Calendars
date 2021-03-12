@@ -31,6 +31,6 @@
 	)); ?>
 </div>
 </div>
-	</div><!-- col-xs-10のおわり -->
+	</div><?php //<!-- col-xs-10のおわり --> ?>
 	<div class="clearfix"></div>
-</div><!-- form-groupおわり -->
+</div><?php //<!-- form-groupおわり -->
