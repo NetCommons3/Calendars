@@ -82,7 +82,7 @@ echo $this->element('Calendars.scripts');
 				}
 			?>
 			</fieldset>
-		</div><!--end panel-body-->
+		</div><?php //<!--end panel-body--> ?>
 
 		<?php
 			//エラー表示。 便宜的に、is_repeatを指定しておく。
@@ -108,8 +108,8 @@ echo $this->element('Calendars.scripts');
 			);
 			echo $this->Button->delete(__d('net_commons', 'Delete'), '', $deleteOptions);
 		?>
-		</div><!-- end panel footer -->
+		</div><?php //<!-- end panel footer --> ?>
 		<?php echo $this->NetCommonsForm->end() ?>
-	</div><!-- end panel-->
+	</div><?php //<!-- end panel--> ?>
 </article>
 

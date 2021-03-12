@@ -43,5 +43,5 @@ if (isset($this->data['CalendarFrameSetting'])) {
 			'cancelUrl' => NetCommonsUrl::backToIndexUrl('default_action'),
 		)); ?>
 
-	</div><!--end tab-content-->
+	</div><?php //<!--end tab-content--> ?>
 </article>

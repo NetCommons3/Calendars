@@ -51,6 +51,6 @@ $urlParams = array(
 			),
 			NetCommonsUrl::backToIndexUrl('default_setting_action')
 		); ?>
-	</div><!--end tab-content-->
+	</div><?php //<!--end tab-content--> ?>
 </article>
 

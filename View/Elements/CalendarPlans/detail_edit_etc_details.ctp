@@ -70,7 +70,7 @@
 				echo $this->NetCommonsForm->error('CalendarActionPlan.timezone_offset');
 			?>
 			</div>
-		</div><!-- form-groupおわり-->
+		</div><?php //<!-- form-groupおわり--> ?>
 	</div>
 
 </div>

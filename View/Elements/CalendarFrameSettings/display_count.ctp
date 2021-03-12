@@ -28,6 +28,6 @@
 		'class' => 'form-control',
 		));
 	?>
-	</div><!-- col-xs-10おわり -->
+	</div><?php //<!-- col-xs-10おわり --> ?>
 	<div class="clearfix"></div>
-</div><!-- form-groupおわり-->
+</div><?php //<!-- form-groupおわり-->

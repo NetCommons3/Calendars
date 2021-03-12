@@ -25,10 +25,10 @@
 		));
 		?>
 	</div>
-</div><!-- end form-group-->
+</div><?php //<!-- end form-group--> ?>
 
 <div class="row" ng-cloak>
-	<div class="col-xs-11 col-xs-offset-1 form-horizontal calendar-repeat-a-plan-detail_<?php echo $frameId; ?>" 
+	<div class="col-xs-11 col-xs-offset-1 form-horizontal calendar-repeat-a-plan-detail_<?php echo $frameId; ?>"
 		ng-show="repeatArray[<?php echo $frameId; ?>]==1">
 		<?php /* 繰り返しのタイプ選択 */ ?>
 		<div class="form-group" name="selectRepeatType">
@@ -57,7 +57,7 @@
 				));
 			?>
 			<?php echo $this->NetCommonsForm->error('CalendarActionPlan.rrule_interval.DAILY'); ?>
-		</div><!-- form-group終わり-->
+		</div><?php //<!-- form-group終わり--> ?>
 
 		<?php /* 繰り返しが「日」単位指定の場合の詳細設定 */ ?>
 		<div class="form-group calendar-daily-info_<?php echo $frameId; ?>"
@@ -91,7 +91,7 @@
 			//echo $this->NetCommonsForm->error( 重複になるためコメントアウト
 			//	'CalendarActionPlan.rrule_interval.' . CalendarsComponent::CALENDAR_REPEAT_FREQ_DAILY, null, array('div' => true));
 			?>
-		</div><!-- en daily repeat setting form-group-->
+		</div><?php //<!-- en daily repeat setting form-group--> ?>
 
 		<?php /* 繰り返しが「週」単位指定の場合の詳細設定 */ ?>
 		<div class="form-group calendar-weekly-info_<?php echo $frameId; ?>"
@@ -137,7 +137,7 @@
 				));
 				?>
 			</div>
-		</div><!-- end form-group weekly setting-->
+		</div><?php //<!-- end form-group weekly setting--> ?>
 
 		<?php /* 繰り返しが「月」単位指定の場合の詳細設定 */ ?>
 		<div class="form-group calendar-monthly-info_<?php echo $frameId; ?>"
@@ -191,7 +191,7 @@
 				<div class="form-group calendar-plan-rrule-freq-select-one">
 				<?php echo __d('calendars', 'or'); ?>
 				</div>
-			</div><!--end 'or' col-->
+			</div><?php //<!--end 'or' col--> ?>
 			<div class="col-xs-8 col-sm-4">
 			<?php
 				$options = array();
@@ -212,7 +212,7 @@
 				));
 			?>
 			</div>
-		</div><!-- end form-group weekly repeat setting-->
+		</div><?php //<!-- end form-group weekly repeat setting--> ?>
 
 		<?php /* 繰り返しが「年」単位指定の場合の詳細設定 */ ?>
 		<div class="form-group calendar-yearly-info_<?php echo $frameId; ?>"
@@ -278,7 +278,7 @@
 					'ng-init' => 'yearlyDayOfTheWeek[' . $frameId . "] = '" . $yearlyDayOfTheWeekVal . "'",
 				));
 			?>
-		</div><!-- end form-group yearly repeat settin -->
+		</div><?php //<!-- end form-group yearly repeat settin --> ?>
 
 		<?php /* 終了時指定 */ ?>
 		<div class="form-group calendar-repeat-limit_<?php echo $frameId; ?>" data-calendar-name="calendarRepeatLimit">
@@ -330,7 +330,7 @@
 					//echo $this->NetCommonsForm->error('CalendarActionPlan.rrule_count');
 				?>
 				</div>
-				
+
 				<div class="col-xs-6 col-sm-1 calendar-detailedit-addchar">
 					<?php echo __d('calendars', 'times'); ?>
 				</div>
@@ -365,9 +365,9 @@
 					));
 				?>
 			</div>
-		</div><!-- form-group name=calendarRepeatLimitおわり -->
+		</div><?php //<!-- form-group name=calendarRepeatLimitおわり --> ?>
 
 		<div class="clearfix"></div>
-	</div><!-- 繰返しの選択詳細 END -->
+	</div><?php //<!-- 繰返しの選択詳細 END --> ?>
 
 </div>
