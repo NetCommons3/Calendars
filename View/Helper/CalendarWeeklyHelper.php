@@ -40,7 +40,7 @@ class CalendarWeeklyHelper extends CalendarMonthlyHelper {
  *
  * 予定概要群html取得
  *
- * @param array &$vars カレンダー情報
+ * @param array $vars カレンダー情報
  * @param int $year 年
  * @param int $month 月
  * @param int $day 日
@@ -49,7 +49,7 @@ class CalendarWeeklyHelper extends CalendarMonthlyHelper {
  * @param array $plans この日の予定群
  * @return string HTML
  */
-	public function getPlanSummariesHtml(&$vars, $year, $month, $day, $fromTime, $toTime, $plans) {
+	public function getPlanSummariesHtml($vars, $year, $month, $day, $fromTime, $toTime, $plans) {
 		$html = '';
 
 		if ($this->_lineProcess == true) {
@@ -96,7 +96,7 @@ class CalendarWeeklyHelper extends CalendarMonthlyHelper {
  *
  * 予定（タイトル）html取得
  *
- * @param array &$vars カレンダー情報
+ * @param array $vars カレンダー情報
  * @param int $year 年
  * @param int $month 月
  * @param int $day 日
@@ -105,7 +105,7 @@ class CalendarWeeklyHelper extends CalendarMonthlyHelper {
  * @param array $plan 予定
  * @return string HTML
  */
-	public function getPlanTitleHtml(&$vars, $year, $month, $day, $fromTime, $toTime, $plan) {
+	public function getPlanTitleHtml($vars, $year, $month, $day, $fromTime, $toTime, $plan) {
 		$html = '';
 		// 大枠
 		$html .= '<div class="row">';
@@ -122,10 +122,10 @@ class CalendarWeeklyHelper extends CalendarMonthlyHelper {
  *
  * (週表示)ヘッダ部分html生成
  *
- * @param array &$vars コントローラーからの情報
- * @return string HTML
+ * @param array $vars コントローラーからの情報
+ * @return array HTMLと$varsを返す
  */
-	public function makeWeeklyHeaderHtml(&$vars) {
+	public function makeWeeklyHeaderHtml($vars) {
 		if ($vars['week'] == 0) {
 			//日付から第n週を求めて設定
 			$nWeek = ceil(($vars['mInfo']['wdayOf1stDay'] + $vars['day']) / 7);
@@ -188,7 +188,7 @@ class CalendarWeeklyHelper extends CalendarMonthlyHelper {
 			$html .= '</td>';
 		}
 		$html .= '</tr>';
-		return $html;
+		return [$html, $vars];
 	}
 /**
  * makeWeeklyBodyHtml

@@ -59,10 +59,10 @@ class CalendarButtonHelper extends AppHelper {
  * @param int $year 年
  * @param int $month 月
  * @param int $day 日
- * @param arrya &$vars カレンダー情報
+ * @param arrya $vars カレンダー情報
  * @return string HTML
  */
-	public function makeGlyphiconPlusWithUrl($year, $month, $day, &$vars) {
+	public function makeGlyphiconPlusWithUrl($year, $month, $day, $vars) {
 		$url = $this->_makeAddUrl($vars, $year, $month, $day);
 		$options = array(
 			'url' => $url,
@@ -80,10 +80,10 @@ class CalendarButtonHelper extends AppHelper {
  * @param int $month 月
  * @param int $day 日
  * @param int $hour 時
- * @param arrya &$vars カレンダー情報
+ * @param arrya $vars カレンダー情報
  * @return string HTML
  */
-	public function makeGlyphiconPlusWithTimeUrl($year, $month, $day, $hour, &$vars) {
+	public function makeGlyphiconPlusWithTimeUrl($year, $month, $day, $hour, $vars) {
 		$url = $this->_makeAddUrl($vars, $year, $month, $day, $hour);
 		$options = array(
 			'url' => $url,
