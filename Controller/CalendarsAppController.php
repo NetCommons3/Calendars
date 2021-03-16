@@ -23,6 +23,7 @@ App::uses('Space', 'Rooms.Model');
  * @property \CalendarFrameSetting $CalendarFrameSetting
  * @property \CalendarEventShareUser $CalendarEventShareUser
  * @property \CalendarEventSelectRoom $CalendarEventSelectRoom
+ * @property \CalendarActionPlan $CalendarActionPlan
  * @property \Room $Room
  * @property \RoomsLanguages $RoomsLanguages
  *
@@ -52,6 +53,7 @@ class CalendarsAppController extends AppController {
 		'Calendars.CalendarFrameSetting',
 		'Calendars.CalendarEventShareUser',
 		'Calendars.CalendarEventSelectRoom',
+		'Calendars.CalendarActionPlan',
 		'Rooms.Room',
 		'Rooms.RoomsLanguages', //pending
 	);
