@@ -2,8 +2,6 @@
 /**
  * Calendars Controller
  *
- * @property PaginatorComponent $Paginator
- *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Allcreator <info@allcreator.net>
  * @link http://www.netcommons.org NetCommons Project
@@ -18,6 +16,18 @@ App::uses('CalendarPermissiveRooms', 'Calendars.Utility');
 
 /**
  * CalendarsController
+ *
+ * @property PermissionComponent $Permission
+ *
+ * @property \CalendarRrule $CalendarRrule
+ * @property \CalendarEvent $CalendarEvent
+ * @property \CalendarFrameSetting $CalendarFrameSetting
+ * @property \Calendar $Calendar
+ * @property \CalendarEventShareUser $CalendarEventShareUser
+ * @property \CalendarFrameSettingSelectRoom $CalendarFrameSettingSelectRoom
+ * @property \CalendarActionPlan $CalendarActionPlan
+ * @property \Holiday $Holiday
+ * @property \Room $Room
  *
  * @author Allcreator <info@allcreator.net>
  * @package NetCommons\Calendars\Controller
@@ -39,7 +49,6 @@ class CalendarsController extends CalendarsAppController {
 		'Calendars.CalendarActionPlan',	//予定CRUDaction専用
 		'Holidays.Holiday',
 		'Rooms.Room',
-		'NetCommons.BackTo',
 	);
 
 /**
@@ -55,7 +64,6 @@ class CalendarsController extends CalendarsAppController {
 				//予定のCRUDはCalendarsPlancontrollerが担当。このcontrollerは表示系conroller.とする。
 			),
 		),
-		'Paginator',
 	);
 
 /**
