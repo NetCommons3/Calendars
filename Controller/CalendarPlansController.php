@@ -19,6 +19,12 @@ App::uses('CalendarPermissiveRooms', 'Calendars.Utility');
 /**
  * CalendarPlansController
  *
+ * @property \CalendarPermissionComponent $CalendarPermission
+ * @property \CalendarsDailyComponent $CalendarsDaily
+ * @property \CalendarWorksComponent $CalendarWorks
+ * @property \PaginatorComponent $Paginator
+ * @property \UserAttributeLayoutComponent $UserAttributeLayout
+ *
  * @property \CalendarRrule $CalendarRrule
  * @property \CalendarEvent $CalendarEvent
  * @property \CalendarFrameSetting $CalendarFrameSetting
