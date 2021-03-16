@@ -8,8 +8,11 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 App::uses('AppHelper', 'View/Helper');
+
 /**
  * Calendar GetCategoryName Helper
+ *
+ * @property \CalendarCommonHelper $CalendarCommon
  *
  * @author Allcreator Co., Ltd. <info@allcreator.net>
  * @package NetCommons\Calendars\View\Helper
