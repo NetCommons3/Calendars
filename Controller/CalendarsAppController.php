@@ -245,12 +245,6 @@ class CalendarsAppController extends AppController {
 			$order = array('CalendarEvent' . '.dtstart');
 		}
 
-		$vars['parentIdType'] = array(	//これも共通なので含めておく。
-			'public' => Space::getRoomIdRoot(Space::PUBLIC_SPACE_ID),	//公開
-			'private' => Space::getRoomIdRoot(Space::PRIVATE_SPACE_ID),	//プライベート
-			'member' => Space::getRoomIdRoot(Space::COMMUNITY_SPACE_ID),	//全会員
-		);
-
 		//room_idとspace_idの対応表を載せておく。
 		$vars = $this->__setRoomInfos($vars);
 
