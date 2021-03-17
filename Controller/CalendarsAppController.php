@@ -25,7 +25,7 @@ App::uses('Space', 'Rooms.Model');
  * @property \CalendarEventSelectRoom $CalendarEventSelectRoom
  * @property \CalendarActionPlan $CalendarActionPlan
  * @property \Room $Room
- * @property \RoomsLanguages $RoomsLanguages
+ * @property \RoomsAppModel $RoomsLanguages
  *
  * @author Allcreator <info@allcreator.net>
  * @package NetCommons\Calendars\Controller
@@ -55,6 +55,9 @@ class CalendarsAppController extends AppController {
 		'Calendars.CalendarEventSelectRoom',
 		'Calendars.CalendarActionPlan',
 		'Rooms.Room',
+		//HACK: RoomsLanguagesモデルがないため、RoomsAppModelが使用されている。
+		//　　　(Cakeが良い感じにRooms.RoomsAppModelを使用するようにしている模様)
+		//　　　本来、正しいモデルを使用するように直すべきだが、多岐にわたり使用されているためそのままとする。
 		'Rooms.RoomsLanguages', //pending
 	);
 
@@ -241,12 +244,6 @@ class CalendarsAppController extends AppController {
 			//$order = array('CalendarEvent' . '.start_date');
 			$order = array('CalendarEvent' . '.dtstart');
 		}
-
-		$vars['parentIdType'] = array(	//これも共通なので含めておく。
-			'public' => Space::getRoomIdRoot(Space::PUBLIC_SPACE_ID),	//公開
-			'private' => Space::getRoomIdRoot(Space::PRIVATE_SPACE_ID),	//プライベート
-			'member' => Space::getRoomIdRoot(Space::COMMUNITY_SPACE_ID),	//全会員
-		);
 
 		//room_idとspace_idの対応表を載せておく。
 		$vars = $this->__setRoomInfos($vars);
