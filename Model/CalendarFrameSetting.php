@@ -348,11 +348,16 @@ class CalendarFrameSetting extends CalendarsAppModel {
 /**
  * カレンダーの予定(calendar_eventsテーブル)keyからframe_idを取得し、返す
  *
+ * 特に新着情報から遷移したときにそのルームに配置してあるカレンダーに遷移するために使用する
+ *
  * @param string $eventKey $eventKey
  * @return int|null フレームID
  */
 	public function getFrameIdByEventKey($eventKey) {
-		$this->loadModels(['CalendarEvent' => 'Calendars.CalendarEvent']);
+		$this->loadModels([
+			'CalendarEvent' => 'Calendars.CalendarEvent',
+			'Block' => 'Blocks.Block',
+		]);
 
 		$event = $this->CalendarEvent->find('first', [
 			'recursive' => -1,
@@ -376,6 +381,20 @@ class CalendarFrameSetting extends CalendarsAppModel {
 			'conditions' => [
 				$this->Frame->alias . '.plugin_key' => 'calendars',
 				$this->Frame->alias . '.room_id' => $event[$this->CalendarEvent->alias]['room_id'],
+			],
+			'joins' => [
+				//HACK: v3をリリースした直後の古いバージョンで不具合があり、
+				//　　　framesのroom_idとblocksのroom_idが異なる場合がある。
+				//　　　そのためエラーになるためJOINして正しいフレームを対象とする
+				[
+					'type' => 'INNER',
+					'table' => $this->Block->table,
+					'alias' => $this->Block->alias,
+					'conditions' => [
+						'Frame.block_id = Block.id',
+						'Frame.room_id = Block.room_id',
+					],
+				],
 			],
 			'order' => [
 				$this->Frame->alias . '.id' => 'asc',
