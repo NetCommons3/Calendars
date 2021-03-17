@@ -13,6 +13,15 @@ App::uses('CalendarPermissiveRooms', 'Calendars.Utility');
 /**
  * Calendar ExposeTarget Helper
  *
+ * @property \CalendarCommonHelper $CalendarCommon
+ * @property \WorkflowHelper $Workflow
+ * @property \NetCommonsFormHelper $NetCommonsForm
+ * @property \NetCommonsHtmlHelper $NetCommonsHtml
+ * @property \FormHelper $Form
+ * @property \RoomsHelper $Rooms
+ * @property \CalendarCategoryHelper $CalendarCategory
+ * @property \CalendarWorkflowHelper $CalendarWorkflow
+ *
  * @author Allcreator Co., Ltd. <info@allcreator.net>
  * @package NetCommons\Calendars\View\Helper
  */

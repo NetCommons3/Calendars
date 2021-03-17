@@ -15,6 +15,18 @@ App::uses('Space', 'Rooms.Model');
 /**
  * CalendarsAppController
  *
+ * @property \PageLayoutComponent $PageLayout
+ * @property \SecurityComponent $Security
+ *
+ * @property \CalendarRrule $CalendarRrule
+ * @property \CalendarEvent $CalendarEvent
+ * @property \CalendarFrameSetting $CalendarFrameSetting
+ * @property \CalendarEventShareUser $CalendarEventShareUser
+ * @property \CalendarEventSelectRoom $CalendarEventSelectRoom
+ * @property \CalendarActionPlan $CalendarActionPlan
+ * @property \Room $Room
+ * @property \RoomsLanguages $RoomsLanguages
+ *
  * @author Allcreator <info@allcreator.net>
  * @package NetCommons\Calendars\Controller
  */
@@ -41,6 +53,7 @@ class CalendarsAppController extends AppController {
 		'Calendars.CalendarFrameSetting',
 		'Calendars.CalendarEventShareUser',
 		'Calendars.CalendarEventSelectRoom',
+		'Calendars.CalendarActionPlan',
 		'Rooms.Room',
 		'Rooms.RoomsLanguages', //pending
 	);
