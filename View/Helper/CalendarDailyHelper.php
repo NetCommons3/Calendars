@@ -81,17 +81,23 @@ class CalendarDailyHelper extends CalendarMonthlyHelper {
  */
 	public function getPlanSummariesHtml($vars, $year, $month, $day, $fromTime, $toTime, $plans) {
 		$html = '';
-		foreach ($plans as $plan) {
-			//仕様
-			//予定が１件以上あるとき）
-			$html .= "<tr><td><div class='row'><div class='col-xs-12'>"; //１プランの開始
-			//$html .= "<p class='calendar-plan-clickable text-left calendar-daily-nontimeline-plan'>";
+		if ($plans) {
+			foreach ($plans as $plan) {
+				//仕様
+				//予定が１件以上あるとき）
+				$html .= "<tr><td><div class='row'><div class='col-xs-12'>"; //１プランの開始
+				//$html .= "<p class='calendar-plan-clickable text-left calendar-daily-nontimeline-plan'>";
 
-			$html .= $this->getPlanTitleDailyListHtml($vars, $year, $month, $day, $fromTime, $toTime, $plan);
+				$html .= $this->getPlanTitleDailyListHtml(
+						$vars, $year, $month, $day, $fromTime, $toTime, $plan);
 
-			// 1プランの終了
-			$html .= "</p>";
-			$html .= "</div></div></div></td></tr>";
+				// 1プランの終了
+				$html .= "</p>";
+				$html .= "</div></div></div></td></tr>";
+			}
+		} else {
+			$html .= '<p class="calendar-schedule-row-plan">' .
+					__d('calendars', 'No plan.') . '</p>';
 		}
 		return $html;
 	}

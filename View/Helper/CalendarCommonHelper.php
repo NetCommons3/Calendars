@@ -58,8 +58,10 @@ class CalendarCommonHelper extends AppHelper {
 	public function makePseudoPlanFromEvent($vars, $event) {
 		$plan = $event;
 		$shareUsers = [];
-		foreach ($plan['CalendarEventShareUser'] as $item) {
-			$shareUsers[] = $item['share_user'];
+		if (isset($plan['CalendarEventShareUser'])) {
+			foreach ($plan['CalendarEventShareUser'] as $item) {
+				$shareUsers[] = $item['share_user'];
+			}
 		}
 		if (!empty($shareUsers) && in_array(Current::read('User.id'), $shareUsers)) {
 			//共有者の一覧に「自分がある」＝共有「された」仲間の予定である。
