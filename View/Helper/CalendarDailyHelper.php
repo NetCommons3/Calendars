@@ -88,7 +88,8 @@ class CalendarDailyHelper extends CalendarMonthlyHelper {
 				$html .= "<tr><td><div class='row'><div class='col-xs-12'>"; //１プランの開始
 				//$html .= "<p class='calendar-plan-clickable text-left calendar-daily-nontimeline-plan'>";
 
-				$html .= $this->getPlanTitleDailyListHtml($vars, $year, $month, $day, $fromTime, $toTime, $plan);
+				$html .= $this->getPlanTitleDailyListHtml(
+						$vars, $year, $month, $day, $fromTime, $toTime, $plan);
 
 				// 1プランの終了
 				$html .= "</p>";
