@@ -420,7 +420,7 @@ class CalendarPlansController extends CalendarsAppController {
 
 		$eventId = $this->CalendarActionPlan->saveCalendarPlan(
 			$this->request->data, $procMode, $isOriginRepeat, $isTimeMod, $isRepeatMod,
-			$createdUserWhenUpd, $this->_myself);
+			$createdUserWhenUpd, $isMyPrivateRoom);
 		if (!$eventId) {
 			//保存失敗
 			CakeLog::error("保存失敗");	//FIXME: エラー処理を記述のこと。
