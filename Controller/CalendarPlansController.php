@@ -154,12 +154,12 @@ class CalendarPlansController extends CalendarsAppController {
  */
 	public function beforeFilter() {
 		if ($this->params['action'] === 'view' &&
-				empty($this->request->params['?']['frame_id']) &&
+				empty($this->request->query['frame_id']) &&
 				!empty($this->request->params['key'])) {
 			//新着情報から来た際、予定(calendar_eventsテーブル)keyからフレームIDを取得して、表示させる
 			$frameId = $this->CalendarFrameSetting->getFrameIdByEventKey($this->request->params['key']);
 			if ($frameId) {
-				$this->request->params['?']['frame_id'] = $frameId;
+				$this->request->query['frame_id'] = $frameId;
 			}
 		}
 
