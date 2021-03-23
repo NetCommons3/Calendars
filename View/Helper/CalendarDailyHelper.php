@@ -95,9 +95,6 @@ class CalendarDailyHelper extends CalendarMonthlyHelper {
 				$html .= "</p>";
 				$html .= "</div></div></div></td></tr>";
 			}
-		} else {
-			$html .= '<p class="calendar-schedule-row-plan">' .
-					__d('calendars', 'No plan.') . '</p>';
 		}
 		return $html;
 	}

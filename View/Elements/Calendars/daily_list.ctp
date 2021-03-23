@@ -8,15 +8,23 @@
  * @license http://www.netcommons.org/license.txt NetCommons License
  * @copyright Copyright 2014, NetCommons Project
  */
+
+$dailyListBody = $this->CalendarDaily->makeDailyListBodyHtml($vars);
 ?>
-<div class="row">
-	<div class="col-xs-12">
-		<table class="table table-hover">
-			<tbody>
-				<?php
-					echo $this->CalendarDaily->makeDailyListBodyHtml($vars);
-				?>
-			</tbody>
-		</table>
+<?php if ($dailyListBody) : ?>
+	<div class="row">
+		<div class="col-xs-12">
+			<table class="table table-hover">
+				<tbody>
+					<?php
+						echo $dailyListBody;
+					?>
+				</tbody>
+			</table>
+		</div>
 	</div>
-</div>
+<?php else : ?>
+		<p class="calendar-schedule-row-plan">
+		<?php echo __d('calendars', 'No plan.'); ?>
+		</p>
+<?php endif;
