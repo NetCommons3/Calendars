@@ -173,7 +173,7 @@ class CalendarAppBehavior extends ModelBehavior {
 		if ($model->CalendarEvent->id > 0 && $createdUserWhenUpd !== null) {
 			//saveが成功し、かつ、createdUserWhenUpd がnull以外なら、created_userを更新しておく。
 			//modifiedも更新されるが、saveの直後なので誤差の範囲として了とする。
-			$model->CalendarEvent->saveField('created_user', $createdUserWhenUpd);
+			$model->CalendarEvent->saveField('created_user', $createdUserWhenUpd, ['callbacks' => false]);
 			//UPDATEでセットしたcreatedUserWhenUpdの値をeventDataに記録しておく
 			$rEventData['CalendarEvent']['created_user'] = $createdUserWhenUpd;
 		}
