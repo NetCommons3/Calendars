@@ -32,6 +32,30 @@ class CalendarUrlHelper extends AppHelper {
 	);
 
 /**
+ * @var string
+ */
+	private $__dailyBaseUrl;
+
+
+	public function beforeRender($viewFile) {
+		$this->__dailyBaseUrl = $this->getCalendarUrl(array(
+			'plugin' => 'calendars',
+			'controller' => 'calendars',
+			'action' => 'index',
+			'block_id' => '',
+			'frame_id' => Current::read('Frame.id'),
+			'?' => array(
+				'style' => 'daily',
+				'tab' => 'list',
+				//'year' => $year,
+				//'month' => $month,
+				//'day' => $day,
+			)
+		));
+		parent::beforeRender($viewFile);
+	}
+
+/**
  * makePlanShowUrl
  *
  * 予定表示Url生成
@@ -131,21 +155,13 @@ class CalendarUrlHelper extends AppHelper {
  * @return string URL
  */
 	public function getCalendarDailyUrl($year, $month, $day) {
-		$url = $this->getCalendarUrl(array(
-			'plugin' => 'calendars',
-			'controller' => 'calendars',
-			'action' => 'index',
-			'block_id' => '',
-			'frame_id' => Current::read('Frame.id'),
-			'?' => array(
-				'style' => 'daily',
-				'tab' => 'list',
-				'year' => $year,
-				'month' => $month,
-				'day' => $day,
-			)
-		));
-		return $url;
+		return $this->__dailyBaseUrl . '&' . http_build_query(
+				[
+					'year' => $year,
+					'month' => $month,
+					'day' => $day,
+				]
+			);
 	}
 
 /**
