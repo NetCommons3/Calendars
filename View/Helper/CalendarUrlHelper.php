@@ -32,12 +32,27 @@ class CalendarUrlHelper extends AppHelper {
 	);
 
 /**
- * @var string
+ * @var string daily へのリンクから年月日クエリを除いたURL
  */
 	private $__dailyBaseUrl;
 
-
+/**
+ * beforeRender
+ *
+ * @param string $viewFile view file
+ * @return void
+ */
 	public function beforeRender($viewFile) {
+		$this->__setupDailyBaseUrl();
+		parent::beforeRender($viewFile);
+	}
+
+/**
+ * setupDailyBaseUrl
+ *
+ * @return void
+ */
+	private function __setupDailyBaseUrl() {
 		$this->__dailyBaseUrl = $this->getCalendarUrl(array(
 			'plugin' => 'calendars',
 			'controller' => 'calendars',
@@ -47,12 +62,8 @@ class CalendarUrlHelper extends AppHelper {
 			'?' => array(
 				'style' => 'daily',
 				'tab' => 'list',
-				//'year' => $year,
-				//'month' => $month,
-				//'day' => $day,
 			)
 		));
-		parent::beforeRender($viewFile);
 	}
 
 /**
@@ -115,6 +126,7 @@ class CalendarUrlHelper extends AppHelper {
 		$url = $this->getCalendarUrlAsArray($options);
 		return $url;
 	}
+
 /**
  * makeEditUrlWithTime
  *

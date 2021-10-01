@@ -14,8 +14,17 @@ App::uses('CalendarUrlHelper', 'Calendars.View/Helper');
 App::uses('View', 'View');
 App::uses('NetCommonsUrl', 'NetCommons.Utility');
 
+/**
+ *  CalendarUrlHelper::getCalendarDailyUrlテスト
+ */
 class CalendarUrlHelperGetCalendarDailyUrlTest extends CakeTestCase {
-	public function testTest(){
+
+/**
+ * testTest
+ *
+ * @return void
+ */
+	public function testTest() {
 		$calendarUrl = new CalendarUrlHelper(new View());
 		Current::write('Frame.id', '10');
 		$calendarUrl->beforeRender('viewFile');
