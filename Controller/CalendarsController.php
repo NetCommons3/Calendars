@@ -80,6 +80,7 @@ class CalendarsController extends CalendarsAppController {
 		'Calendars.CalendarTurnCalendar',
 		'Calendars.CalendarLegend',
 		'Calendars.CalendarButton',
+		'Calendars.CalendarUrl',
 	);
 
 /**

@@ -32,6 +32,41 @@ class CalendarUrlHelper extends AppHelper {
 	);
 
 /**
+ * @var string daily へのリンクから年月日クエリを除いたURL
+ */
+	private $__dailyBaseUrl;
+
+/**
+ * beforeRender
+ *
+ * @param string $viewFile view file
+ * @return void
+ */
+	public function beforeRender($viewFile) {
+		$this->__setupDailyBaseUrl();
+		parent::beforeRender($viewFile);
+	}
+
+/**
+ * setupDailyBaseUrl
+ *
+ * @return void
+ */
+	private function __setupDailyBaseUrl() {
+		$this->__dailyBaseUrl = $this->getCalendarUrl(array(
+			'plugin' => 'calendars',
+			'controller' => 'calendars',
+			'action' => 'index',
+			'block_id' => '',
+			'frame_id' => Current::read('Frame.id'),
+			'?' => array(
+				'style' => 'daily',
+				'tab' => 'list',
+			)
+		));
+	}
+
+/**
  * makePlanShowUrl
  *
  * 予定表示Url生成
@@ -91,6 +126,7 @@ class CalendarUrlHelper extends AppHelper {
 		$url = $this->getCalendarUrlAsArray($options);
 		return $url;
 	}
+
 /**
  * makeEditUrlWithTime
  *
@@ -131,21 +167,13 @@ class CalendarUrlHelper extends AppHelper {
  * @return string URL
  */
 	public function getCalendarDailyUrl($year, $month, $day) {
-		$url = $this->getCalendarUrl(array(
-			'plugin' => 'calendars',
-			'controller' => 'calendars',
-			'action' => 'index',
-			'block_id' => '',
-			'frame_id' => Current::read('Frame.id'),
-			'?' => array(
-				'style' => 'daily',
-				'tab' => 'list',
-				'year' => $year,
-				'month' => $month,
-				'day' => $day,
-			)
-		));
-		return $url;
+		return $this->__dailyBaseUrl . '&' . http_build_query(
+				[
+					'year' => $year,
+					'month' => $month,
+					'day' => $day,
+				]
+			);
 	}
 
 /**
