@@ -263,8 +263,10 @@ class CalendarPermission extends CalendarsAppModel {
 			'block_permission_editable',
 			'mail_editable');
 		$roomIds = [];
+		$blockKeys = [];
 		foreach ($roomBlocks as $roomBlock) {
 			$roomIds[] = $roomBlock['Room']['id'];
+			$blockKeys[] = $roomBlock['Block']['key'];
 		}
 		$result = $this->DefaultRolePermission->find('all', array(
 			'recursive' => -1,
@@ -319,7 +321,8 @@ class CalendarPermission extends CalendarsAppModel {
 			),
 			'conditions' => array(
 				'RolesRoom.room_id' => $roomIds,
-				'RolesRoom.role_key' => array_keys($roleKeys)
+				'RolesRoom.role_key' => array_keys($roleKeys),
+				'BlockRolePermission.block_key' => $blockKeys
 			),
 			'order' => array(
 				'RolesRoom.room_id asc',
@@ -327,6 +330,11 @@ class CalendarPermission extends CalendarsAppModel {
 			)
 		);
 		$tmpPermissions = $this->RolesRoom->find('all', $conditions);
+		$allTmpPermissions = $this->RolesRoom->find('all', ['recursive' => -1]);
+		$allRoleRoomIds = [];
+		foreach ($allTmpPermissions as $allPerm) {
+			$allRoleRoomIds[$allPerm['RolesRoom']['room_id']][$allPerm['RolesRoom']['role_key']] = $allPerm['RolesRoom']['id'];
+		}
 		$basePermissions = array();
 		foreach ($tmpPermissions as $perm) {
 			$tmpRoomId = $perm['RolesRoom']['room_id'];
@@ -341,15 +349,33 @@ class CalendarPermission extends CalendarsAppModel {
 				$permissions[$permName] = array();
 				foreach ($roleData as $roleKey => $default) {
 					$permissions[$permName][$roleKey] = $default;
-					$permissions[$permName][$roleKey]['value'] = Hash::get($basePermissions[$roomId],
-						$roleKey . '.' . $permName . '.BlockRolePermission.value',
-						Hash::get($basePermissions[$roomId],
-							$roleKey . '.' . $permName . '.RoomRolePermission.value', $default['value'])
-					);
-					$permissions[$permName][$roleKey]['roles_room_id'] = Hash::get(
-						$basePermissions[$roomId], $roleKey . '.' . $permName . '.RolesRoom.roles_room_id');
-					$permissions[$permName][$roleKey]['id'] = Hash::get(
-						$basePermissions[$roomId], $roleKey . '.' . $permName . '.BlockRolePermission.id');
+
+					//
+					// すでにblock_role_permissionにカレンダー用の定義レコードがあればそれを使う
+					//
+					if (isset($basePermissions[$roomId])) {
+						$permissions[$permName][$roleKey]['value'] = Hash::get($basePermissions[$roomId],
+							$roleKey . '.' . $permName . '.BlockRolePermission.value',
+							Hash::get($basePermissions[$roomId],
+								$roleKey . '.' . $permName . '.RoomRolePermission.value', $default['value'])
+						);
+						$permissions[$permName][$roleKey]['roles_room_id'] = Hash::get(
+							$basePermissions[$roomId], $roleKey . '.' . $permName . '.RolesRoom.roles_room_id');
+						$permissions[$permName][$roleKey]['id'] = Hash::get(
+							$basePermissions[$roomId], $roleKey . '.' . $permName . '.BlockRolePermission.id');
+					} else {
+						//
+						// まだないときはデフォルト値を持ってきて
+						// id = falseで新しいレコードを作成する準備
+						//
+						// しかし、基準のRolesRoomsテーブルに定義がないようなのは
+						// おかしなデータのはずなので処理対象のデータにしないようにする
+						if (isset($allRoleRoomIds[$roomId][$roleKey])) {
+							$permissions[$permName][$roleKey]['value'] = $default['value'];
+							$permissions[$permName][$roleKey]['roles_room_id'] = $allRoleRoomIds[$roomId][$roleKey];
+							$permissions[$permName][$roleKey]['id'] = false;
+						}
+					}
 				}
 			}
 			if ($permissions) {
