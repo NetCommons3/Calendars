@@ -333,7 +333,9 @@ class CalendarPermission extends CalendarsAppModel {
 		$allTmpPermissions = $this->RolesRoom->find('all', ['recursive' => -1]);
 		$allRoleRoomIds = [];
 		foreach ($allTmpPermissions as $allPerm) {
-			$allRoleRoomIds[$allPerm['RolesRoom']['room_id']][$allPerm['RolesRoom']['role_key']] = $allPerm['RolesRoom']['id'];
+			$roleRoomId = $allPerm['RolesRoom']['room_id'];
+			$roleRoomRoleKey = $allPerm['RolesRoom']['role_key'];
+			$allRoleRoomIds[$roleRoomId][$roleRoomRoleKey] = $allPerm['RolesRoom']['id'];
 		}
 		$basePermissions = array();
 		foreach ($tmpPermissions as $perm) {
