@@ -254,6 +254,7 @@ class CalendarPermission extends CalendarsAppModel {
  *
  * 速度改善の修正に伴って発生したため抑制
  * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
+ * @SuppressWarnings(PHPMD.CyclomaticComplexity)
  */
 	protected function _setPermission(&$roomBlocks, $readableRoom) {
 		$perms = array(
@@ -263,8 +264,10 @@ class CalendarPermission extends CalendarsAppModel {
 			'block_permission_editable',
 			'mail_editable');
 		$roomIds = [];
+		$blockKeys = [];
 		foreach ($roomBlocks as $roomBlock) {
 			$roomIds[] = $roomBlock['Room']['id'];
+			$blockKeys[] = $roomBlock['Block']['key'];
 		}
 		$result = $this->DefaultRolePermission->find('all', array(
 			'recursive' => -1,
@@ -319,13 +322,15 @@ class CalendarPermission extends CalendarsAppModel {
 			),
 			'conditions' => array(
 				'RolesRoom.room_id' => $roomIds,
-				'RolesRoom.role_key' => array_keys($roleKeys)
+				'RolesRoom.role_key' => array_keys($roleKeys),
+				'BlockRolePermission.block_key' => $blockKeys
 			),
 			'order' => array(
 				'RolesRoom.room_id asc',
 				'RolesRoom.id asc',
 			)
 		);
+
 		$tmpPermissions = $this->RolesRoom->find('all', $conditions);
 		$basePermissions = array();
 		foreach ($tmpPermissions as $perm) {
@@ -334,22 +339,40 @@ class CalendarPermission extends CalendarsAppModel {
 			$tmpPerm = $perm['RoomRolePermission']['permission'];
 			$basePermissions[$tmpRoomId][$tmpRoleKey][$tmpPerm] = $perm;
 		}
+
+		$allRoleRoomIds = $this->__getRoleRoomIds($roomIds);
 		foreach ($roomBlocks as &$roomBlock) {
 			$roomId = $roomBlock['Room']['id'];
 			$permissions = array();
 			foreach ($defValue as $permName => $roleData) {
 				$permissions[$permName] = array();
 				foreach ($roleData as $roleKey => $default) {
+
+					// もしも大本定義のRolesRoomに基本定義がないような
+					// room_id, role_keyの組み合わせが来た場合は、
+					// block_role_permissionの作りようがないので、スルーします
+					//
+					if (! isset($allRoleRoomIds[$roomId][$roleKey])) {
+						continue;
+					}
 					$permissions[$permName][$roleKey] = $default;
-					$permissions[$permName][$roleKey]['value'] = Hash::get($basePermissions[$roomId],
-						$roleKey . '.' . $permName . '.BlockRolePermission.value',
-						Hash::get($basePermissions[$roomId],
-							$roleKey . '.' . $permName . '.RoomRolePermission.value', $default['value'])
+
+					//
+					// すでにblock_role_permissionにカレンダー用の定義レコードがあればそれを使う
+					// まだないときはデフォルト値を持ってきて
+					// id = falseで新しいレコードを作成する準備
+					//
+					$permissions[$permName][$roleKey]['value'] = Hash::get($basePermissions,
+						$roomId . '.' . $roleKey . '.' . $permName . '.BlockRolePermission.value',
+						$default['value']
 					);
-					$permissions[$permName][$roleKey]['roles_room_id'] = Hash::get(
-						$basePermissions[$roomId], $roleKey . '.' . $permName . '.RolesRoom.roles_room_id');
-					$permissions[$permName][$roleKey]['id'] = Hash::get(
-						$basePermissions[$roomId], $roleKey . '.' . $permName . '.BlockRolePermission.id');
+					$permissions[$permName][$roleKey]['roles_room_id'] = Hash::get($basePermissions,
+						$roomId . '.' . $roleKey . '.' . $permName . '.RolesRoom.roles_room_id',
+						$allRoleRoomIds[$roomId][$roleKey]
+					);
+					$permissions[$permName][$roleKey]['id'] = Hash::get($basePermissions,
+						$roomId . '.' . $roleKey . '.' . $permName . '.BlockRolePermission.id',
+						false);
 				}
 			}
 			if ($permissions) {
@@ -359,6 +382,29 @@ class CalendarPermission extends CalendarsAppModel {
 				$roomBlock['RolesRoom'] = $readableRoom[$roomBlock['Room']['id']]['RolesRoom'];
 			}
 		}
+	}
+/**
+ * __getRoleRoomIds
+ *
+ * RoleRoomに定義されていているidを返す
+ *
+ * @param array $roomIds ルームID
+ * @return array
+ */
+	private function __getRoleRoomIds($roomIds) {
+		$allRoleRoomPerms = $this->RolesRoom->find('all', [
+			'conditions' => [
+				'room_id' => $roomIds
+			],
+			'recursive' => -1,
+		]);
+		$allRoleRoomIds = [];
+		foreach ($allRoleRoomPerms as $roleRoomPerm) {
+			$roomId = $roleRoomPerm['RolesRoom']['room_id'];
+			$roleKey = $roleRoomPerm['RolesRoom']['role_key'];
+			$allRoleRoomIds[$roomId][$roleKey] = $roleRoomPerm['RolesRoom']['id'];
+		}
+		return $allRoleRoomIds;
 	}
 /**
  * _setBlockSetting
