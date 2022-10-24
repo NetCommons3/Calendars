@@ -254,6 +254,7 @@ class CalendarPermission extends CalendarsAppModel {
  *
  * 速度改善の修正に伴って発生したため抑制
  * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
+ * @SuppressWarnings(PHPMD.CyclomaticComplexity)
  */
 	protected function _setPermission(&$roomBlocks, $readableRoom) {
 		$perms = array(
@@ -329,8 +330,8 @@ class CalendarPermission extends CalendarsAppModel {
 				'RolesRoom.id asc',
 			)
 		);
-		$tmpPermissions = $this->RolesRoom->find('all', $conditions);
 
+		$tmpPermissions = $this->RolesRoom->find('all', $conditions);
 		$basePermissions = array();
 		foreach ($tmpPermissions as $perm) {
 			$tmpRoomId = $perm['RolesRoom']['room_id'];
@@ -338,12 +339,22 @@ class CalendarPermission extends CalendarsAppModel {
 			$tmpPerm = $perm['RoomRolePermission']['permission'];
 			$basePermissions[$tmpRoomId][$tmpRoleKey][$tmpPerm] = $perm;
 		}
+
+		$allRoleRoomIds = $this->__getRoleRoomIds($roomIds);
 		foreach ($roomBlocks as &$roomBlock) {
 			$roomId = $roomBlock['Room']['id'];
 			$permissions = array();
 			foreach ($defValue as $permName => $roleData) {
 				$permissions[$permName] = array();
 				foreach ($roleData as $roleKey => $default) {
+
+					// もしも大本定義のRolesRoomに基本定義がないような
+					// room_id, role_keyの組み合わせが来た場合は、
+					// block_role_permissionの作りようがないので、スルーします
+					//
+					if (! isset($allRoleRoomIds[$roomId][$roleKey])) {
+						continue;
+					}
 					$permissions[$permName][$roleKey] = $default;
 
 					//
@@ -352,16 +363,16 @@ class CalendarPermission extends CalendarsAppModel {
 					// id = falseで新しいレコードを作成する準備
 					//
 					$permissions[$permName][$roleKey]['value'] = Hash::get($basePermissions,
-							$roomId . '.' . $roleKey . '.' . $permName . '.BlockRolePermission.value',
-							$default['value']
-						);
-						$permissions[$permName][$roleKey]['roles_room_id'] = Hash::get($basePermissions,
-							$roomId . '.' . $roleKey . '.' . $permName . '.RolesRoom.roles_room_id',
-							$this->__getRoleRoomId($roomId, $roleKey)
-						);
-						$permissions[$permName][$roleKey]['id'] = Hash::get($basePermissions,
-							$roomId . '.' . $roleKey . '.' . $permName . '.BlockRolePermission.id',
-							false);
+						$roomId . '.' . $roleKey . '.' . $permName . '.BlockRolePermission.value',
+						$default['value']
+					);
+					$permissions[$permName][$roleKey]['roles_room_id'] = Hash::get($basePermissions,
+						$roomId . '.' . $roleKey . '.' . $permName . '.RolesRoom.roles_room_id',
+						$allRoleRoomIds[$roomId][$roleKey]
+					);
+					$permissions[$permName][$roleKey]['id'] = Hash::get($basePermissions,
+						$roomId . '.' . $roleKey . '.' . $permName . '.BlockRolePermission.id',
+						false);
 				}
 			}
 			if ($permissions) {
@@ -373,26 +384,27 @@ class CalendarPermission extends CalendarsAppModel {
 		}
 	}
 /**
- * __getRoleRoomId
+ * __getRoleRoomIds
  *
  * RoleRoomに定義されていているidを返す
  *
- * @param int $roomId ルームID
- * @param string $roleKey 役割名
+ * @param array $roomIds ルームID
  * @return array
  */
-	private function __getRoleRoomId($roomId, $roleKey) {
-		$roleRoom = $this->RolesRoom->find('first', [
+	private function __getRoleRoomIds($roomIds) {
+		$allRoleRoomPerms = $this->RolesRoom->find('all', [
 			'conditions' => [
-				'room_id' => $roomId,
-				'role_key' => $roleKey
+				'room_id' => $roomIds
 			],
-			'recursive' => -1
+			'recursive' => -1,
 		]);
-		if (!$roleRoom) {
-			return false;
+		$allRoleRoomIds = [];
+		foreach ($allRoleRoomPerms as $roleRoomPerm) {
+			$roomId = $roleRoomPerm['RolesRoom']['room_id'];
+			$roleKey = $roleRoomPerm['RolesRoom']['role_key'];
+			$allRoleRoomIds[$roomId][$roleKey] = $roleRoomPerm['RolesRoom']['id'];
 		}
-		return $roleRoom['RolesRoom']['id'];
+		return $allRoleRoomIds;
 	}
 /**
  * _setBlockSetting
