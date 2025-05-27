@@ -236,13 +236,20 @@ class CalendarsAppController extends AppController {
 				$order = array(
 						'TrackableCreator' . '.handlename',
 						'CalendarEvent' . '.dtstart',
+						'CalendarEvent' . '.id',
 						);
 			} else { //時間順
-				$order = array('CalendarEvent' . '.dtstart');
+				$order = array(
+						'CalendarEvent' . '.dtstart',
+						'CalendarEvent' . '.id',
+						);
 			}
 		} else {
 			//$order = array('CalendarEvent' . '.start_date');
-			$order = array('CalendarEvent' . '.dtstart');
+			$order = array(
+					'CalendarEvent' . '.dtstart',
+					'CalendarEvent' . '.id',
+				);
 		}
 
 		//room_idとspace_idの対応表を載せておく。
